@@ -1,6 +1,10 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
+import createMemoizeMiddlware from 'redux-memoize'
+import { save, load } from 'redux-localstorage-simple'
+
 import { browserHistory } from 'react-router'
+
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
 
@@ -8,11 +12,12 @@ export default (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk]
+  const middleware = [createMemoizeMiddlware({ttl: 100}), thunk, save({states:['localstorage'], immutablejs: true})]
 
   // ======================================================
   // Store Enhancers
   // ======================================================
+
   const enhancers = []
 
   let composeEnhancers = compose
@@ -27,9 +32,12 @@ export default (initialState = {}) => {
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
+
   const store = createStore(
     makeRootReducer(),
-    initialState,
+    // initialState,
+    load({states:['localstorage'], immutablejs: true}),
+    // load({states:['localstorage']}),
     composeEnhancers(
       applyMiddleware(...middleware),
       ...enhancers

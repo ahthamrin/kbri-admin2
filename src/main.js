@@ -12,7 +12,7 @@ const store = createStore(initialState)
 // ========================================================
 // Render Setup
 // ========================================================
-const MOUNT_NODE = document.getElementById('root')
+const MOUNT_NODE = document.getElementById('app-container')
 
 let render = () => {
   const routes = require('./routes/index').default(store)

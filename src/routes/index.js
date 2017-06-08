@@ -1,7 +1,21 @@
 // We only need to import the modules necessary for initial render
+import { actions as apiActions } from 'Api/reducer'
+
 import CoreLayout from '../layouts/CoreLayout'
 import Home from './Home'
 import CounterRoute from './Counter'
+import Login from './Login'
+
+// http://stackoverflow.com/questions/38563679/react-redux-dispatch-action-on-app-load-init
+
+function onAppInit(dispatch) {
+  return (nextState, replace, callback) => {
+    dispatch(apiActions.findToken())
+    .then(() => {
+      callback()
+    })
+  }
+}
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -9,9 +23,25 @@ import CounterRoute from './Counter'
 export const createRoutes = (store) => ({
   path        : '/',
   component   : CoreLayout,
-  indexRoute  : Home,
+  onEnter: onAppInit(store.dispatch),
+  indexRoute: Login(store),
+  // indexRoute  : { onEnter: (nextState, replace) => replace('/app/dashboard') }, // Home,
   childRoutes : [
-    CounterRoute(store)
+    CounterRoute(store),
+    // Login(store),
+    
+    require('./app'),
+    require('./404'),
+    require('./500'),
+    require('./confirmEmail'),
+    require('./forgotPassword'),
+    require('./lockScreen'),
+    require('./signUp'),
+    require('./fullscreen'),
+    {
+      path: '*',
+      indexRoute: { onEnter: (nextState, replace) => replace('/404') },
+    }
   ]
 })
 
