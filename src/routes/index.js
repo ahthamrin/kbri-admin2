@@ -30,7 +30,7 @@ export const createRoutes = (store) => ({
     CounterRoute(store),
     // Login(store),
     
-    require('./app'),
+    require('./app').default(store),
     require('./404'),
     require('./500'),
     require('./confirmEmail'),

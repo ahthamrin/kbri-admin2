@@ -25,6 +25,37 @@ const checkStatus = (response) => {
   }
 };
 
+var requestRaw = (endPoint, method, query, data, auth, headers) => {
+
+  var requestParam = '';
+  if (method === 'GET' && data) {
+    requestParam = '?'+query+'='+jsonToURI(data);
+    data = {};
+  }
+
+  var options = {
+    credentials: 'include',
+    mode: 'cors',
+    headers: Object.assign({
+      'Accept': 'application/json',
+      'Authorization': auth,
+    }, headers),
+    method,
+  };
+  if (method != 'GET' && data) {
+    if (headers && headers['Content-Type'] == 'application/json')
+      options.body = JSON.stringify(data)
+    else
+    options.body = data
+
+  }
+
+  const requestUrl = ApiUrl + endPoint + requestParam;
+  return fetch(requestUrl, options)
+    // .then(checkStatus)
+    .then(parse);
+};
+
 var request = (endPoint, method, data, auth, headers) => {
 
   var requestParam = '';
@@ -140,6 +171,12 @@ Api.addReadByTickets = (where, data, auth) => requestWhereData('api/tickets/addR
 
 // --- KBRI RSS ---
 Api.getKbriRSS = (auth) => request('p/kbri-rss', 'GET', null, auth)
+
+// -- Admin page ---
+Api.getFormTimeStats = (options, auth) => requestRaw('api/Forms/timeStats', 'GET', 'options', options, auth)
+Api.getFormSelectionStats = (options, auth) => requestRaw('api/Forms/selectionStats', 'GET', 'options', options, auth)
+
+
 
 console.log('API loaded')
 

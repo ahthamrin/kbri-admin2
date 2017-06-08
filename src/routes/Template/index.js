@@ -1,7 +1,7 @@
-import { injectReducer } from '../../../../store/reducers'
+import { injectReducer } from '../../store/reducers'
 
 export default (store) => ({
-  // path : 'dashboard',
+  path : 'login',
   /*  Async getComponent is only invoked when route matches   */
   getComponent (nextState, cb) {
     /*  Webpack - use 'require.ensure' to create a split point
@@ -9,16 +9,16 @@ export default (store) => ({
     require.ensure([], (require) => {
       /*  Webpack - use require callback to define
           dependencies for bundling   */
-      const Dashboard = require('./containers/DashboardContainer').default
-      const reducer = require('./modules/dashboard').default
+      const Login = require('./containers/LoginContainer').default
+      const reducer = require('./modules/login').default
 
-      /*  Add the reducer to the store on key 'dashboard'  */
-      injectReducer(store, { key: 'dashboard', reducer })
+      /*  Add the reducer to the store on key 'login'  */
+      injectReducer(store, { key: 'login', reducer })
 
       /*  Return getComponent   */
-      cb(null, Dashboard)
+      cb(null, Login)
 
     /* Webpack named bundle   */
-    }, 'dashboard')
+    }, 'login')
   }
 })

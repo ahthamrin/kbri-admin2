@@ -2,8 +2,8 @@ const date = new Date();
 const year = date.getFullYear();
 
 const APPCONFIG = {
-  brand: 'Sakura Indonesia Admin',
-  user: '',
+  brand: 'SAKURA',
+  user: 'husni',
   year,
   productLink: 'https://sakuraindonesia.jp/admin/',
   AutoCloseMobileNav: true,                         // true, false. Automatically close sidenav on route change (Mobile only)

@@ -36,42 +36,42 @@ class NavLeftList extends React.Component {
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
             menuStyle={{minWidth: '250px'}}
                     >
-            <MenuItem
-              className="header-icon-dropdown-item"
-              leftIcon={<i className="material-icons">mail_outline</i>}
-              primaryText="New mail from Susan"
-              secondaryText={<span className="text-muted">5min ago</span>}
-                        />
-            <MenuItem
-              className="header-icon-dropdown-item"
-              leftIcon={<i className="material-icons">mail_outline</i>}
-              primaryText="New mail from John"
-              secondaryText={<span className="text-muted">1h ago</span>}
-                        />
-            <Divider />
-            <MenuItem
-              className="header-icon-dropdown-item"
-              leftIcon={<i className="material-icons">chat_bubble_outline</i>}
-              primaryText="Message from Anna"
-              secondaryText={<span className="text-muted">5min ago</span>}
-                        />
-            <MenuItem
-              className="header-icon-dropdown-item"
-              leftIcon={<i className="material-icons">chat_bubble_outline</i>}
-              primaryText="Message from Jane"
-              secondaryText={<span className="text-muted">1h ago</span>}
-                        />
-            <Divider />
-            <MenuItem
-              className="header-icon-dropdown-item"
-              leftIcon={<i className="material-icons">notifications_none</i>}
-              primaryText="Copy task completed"
-                        />
           </IconMenu>
         </li>
       </ul>
     );
   }
 }
+            // <MenuItem
+            //   className="header-icon-dropdown-item"
+            //   leftIcon={<i className="material-icons">mail_outline</i>}
+            //   primaryText="New mail from Susan"
+            //   secondaryText={<span className="text-muted">5min ago</span>}
+            //             />
+            // <MenuItem
+            //   className="header-icon-dropdown-item"
+            //   leftIcon={<i className="material-icons">mail_outline</i>}
+            //   primaryText="New mail from John"
+            //   secondaryText={<span className="text-muted">1h ago</span>}
+            //             />
+            // <Divider />
+            // <MenuItem
+            //   className="header-icon-dropdown-item"
+            //   leftIcon={<i className="material-icons">chat_bubble_outline</i>}
+            //   primaryText="Message from Anna"
+            //   secondaryText={<span className="text-muted">5min ago</span>}
+            //             />
+            // <MenuItem
+            //   className="header-icon-dropdown-item"
+            //   leftIcon={<i className="material-icons">chat_bubble_outline</i>}
+            //   primaryText="Message from Jane"
+            //   secondaryText={<span className="text-muted">1h ago</span>}
+            //             />
+            // <Divider />
+            // <MenuItem
+            //   className="header-icon-dropdown-item"
+            //   leftIcon={<i className="material-icons">notifications_none</i>}
+            //   primaryText="Copy task completed"
+            //             />
 
 module.exports = NavLeftList;

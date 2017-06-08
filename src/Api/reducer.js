@@ -709,6 +709,52 @@ export const getFormView = (id, link) => {
 	}
 }
 
+
+// -- admin API related --
+
+export const getFormTimeStats = (options) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+		var formList = getState().api
+		return new Promise((resolve) => {
+			return Api.getFormTimeStats(options, token)
+				.then((data) => {
+					if (!data.error) {
+						dispatch(requestSuccess())
+					}
+					else {
+						dispatch(requestError(data.error))
+					}
+					resolve(data)
+				})
+		})
+	}
+}
+
+export const getFormSelectionStats = (options) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+		var formList = getState().api
+		return new Promise((resolve) => {
+			return Api.getFormSelectionStats(options, token)
+				.then((data) => {
+					if (!data.error) {
+						dispatch(requestSuccess())
+					}
+					else {
+						dispatch(requestError(data.error))
+					}
+					resolve(data)
+				})
+		})
+	}
+}
+
+
+
+
 export const actions = {
 	requestClearTokenStart,
 	requestStart,

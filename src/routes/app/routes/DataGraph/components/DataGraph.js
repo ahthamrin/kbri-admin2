@@ -4,25 +4,19 @@ import { Link } from 'react-router';
 import APPCONFIG from 'constants/Config';
 
 import QueueAnim from 'rc-queue-anim';
-import KPIsChart from './KPIsChart';
+import PrefecturesChart from './PrefecturesChart';
 import AquisitionChart from './AquisitionChart';
 import StatBoxes from './StatBoxes';
 import EngagementStats from './EngagementStats';
 import BenchmarkChart from './BenchmarkChart';
 
-const Main = () => (
+const SelectionChart = (props) => (
   <div className="row">
     <div className="col-xl-6">
       <div className="box box-default">
+        <div className="box-header">{props.title}</div>
         <div className="box-body">
-          <KPIsChart />
-        </div>
-      </div>
-    </div>
-    <div className="col-xl-6">
-      <div className="box box-default">
-        <div className="box-body">
-          <AquisitionChart />
+          <PrefecturesChart stats={props.stats} />
         </div>
       </div>
     </div>
@@ -63,7 +57,7 @@ const TimeStats = (props) => (
   </div>
 );
 
-export class Dashboard extends React.Component {
+export class DataGraph extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -81,8 +75,7 @@ export class Dashboard extends React.Component {
       }, 10)
     }
 
-    this.props.getTimeStats('LaporDiri')
-    this.props.getTimeStats('PermohonanPaspor')
+    this.props.getSelectionStats('LaporDiri', 'almtJpProv', 'prefecture')
     
   }
 
@@ -112,16 +105,19 @@ export class Dashboard extends React.Component {
 
   render() {
     return (
-  <div className="container-fluid no-breadcrumbs page-dashboard">
+  <div className="container-fluid no-breadcrumbs with-maxwidth chapter">
+    <article className="article">
+      <h2 className="article-title">Data Grafik</h2>
 
     <QueueAnim type="bottom" className="ui-animate">
-      <div key="1"><TimeStats title="Lapor Diri" type="LaporDiri" stats={this.props.timeStats} /></div>
-      <div key="2"><TimeStats title="Permohonan Paspor" type="PermohonanPaspor" stats={this.props.timeStats} /></div>
+      <div key="1"><SelectionChart title="Lapor Diri per Provinsi" stats={this.props.selectionStats.get('LaporDiri')} /></div>
+      <div key="2"><SelectionChart title="Permohonan Paspor per Provinsi" /></div>
     </QueueAnim>
+    </article>
 
   </div>
     );
   }
 }
 
-export default Dashboard
+export default DataGraph
