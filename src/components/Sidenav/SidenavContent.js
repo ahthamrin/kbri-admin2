@@ -105,7 +105,11 @@ class SidebarContent extends React.Component {
         <li className="nav-header"><span>Navigation</span></li>
         <li><FlatButton href="/app"><i className="nav-icon material-icons">dashboard</i><span className="nav-text">Dashboard</span></FlatButton></li>
         <li><FlatButton href="/app/data-graph"><i className="nav-icon material-icons">view_list</i><span className="nav-text">Data Grafik</span></FlatButton></li>
-        <li>
+        <li><FlatButton href="/app/form-list/LaporDiri/"><i className="nav-icon material-icons">list</i><span className="nav-text">Lapor Diri</span></FlatButton></li>
+        <li><FlatButton href="/app/form-list/PermohonanPaspor/"><i className="nav-icon material-icons">list</i><span className="nav-text">Permohonan Paspor</span></FlatButton></li>
+      </ul>
+      );
+    /*
           <FlatButton href="/app/ui"><i className="nav-icon material-icons">folder_open</i><span className="nav-text">UI Kit</span></FlatButton>
           <ul>
             <li><FlatButton className="prepend-icon" href="/app/ui/buttons"><span>Buttons</span></FlatButton></li>
@@ -221,6 +225,7 @@ class SidebarContent extends React.Component {
         <li className="li-small"><FlatButton href="/app/ui/components"><i className="nav-icon nav-dot material-icons color-info">fiber_manual_record</i><span className="nav-text">UI Components</span></FlatButton></li>
       </ul>
     );
+*/
   }
 }
 

@@ -8,6 +8,8 @@ export default (store) => ({
     require.ensure([], (require) => {
       cb(null, [
         require('./routes/DataGraph').default(store),
+        require('./routes/FormList').default(store),
+        require('./routes/FormView').default(store),
         require('./routes/charts'),
         require('./routes/ecommerce'),
         require('./routes/forms'),

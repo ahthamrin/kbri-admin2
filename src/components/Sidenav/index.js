@@ -78,7 +78,7 @@ class Sidebar extends React.Component {
             <li>
               <a target="_blank" href={APPCONFIG.productLink}>
                 <i className="nav-icon material-icons">help</i>
-                <span className="nav-text"><span>Help</span> & <span>Support</span></span>
+                <span className="nav-text"><span>Bantuan</span></span>
               </a>
             </li>
           </ul>

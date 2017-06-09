@@ -154,7 +154,7 @@ Api.getImage = (param, auth) => request('api/containers/'+param.container+'/down
 Api.createForm = (param, auth) => request('api/Forms', 'POST', param, auth, jsonHeaders)
 
 Api.getUserForms = (userId, param, auth) => request('api/users/'+userId+'/forms', 'GET', param, auth)
-Api.getForms = (param) => request('api/Forms', 'GET', param ? param : undefined )
+Api.getForms = (param, auth) => request('api/Forms', 'GET', param ? param : undefined, auth)
 Api.getFormById = (id, param, auth) => request('api/Forms/'+id, 'GET', param ? param : undefined, auth )
 
 Api.updateForm = (id, param, auth) => request('api/Forms/'+id, 'PUT', param ? param : undefined, auth, jsonHeaders)
