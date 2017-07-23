@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from 'react'
+import { Link } from 'react-router'
 
-import APPCONFIG from 'constants/Config';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import QueueAnim from 'rc-queue-anim';
+import APPCONFIG from 'constants/Config'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+import QueueAnim from 'rc-queue-anim'
 
 export class Login extends React.Component {
   constructor() {
@@ -18,9 +18,9 @@ export class Login extends React.Component {
     console.log('componentWillMount', this.state, this.props)
 
     if ( this.props.token ) {
-      console.log('should change location');
+      console.log('should change location')
       setTimeout(() => {
-        this.props.router.push('/app') // XXX hardwired. See XXX
+        this.props.router.push('/admin/app') // XXX hardwired. See XXX
       }, 100)
     }
 
@@ -34,7 +34,7 @@ export class Login extends React.Component {
       console.log('componentWillReceiveProps', nextProps, this.props)
       if (nextProps.token && !this.props.token) {
         setTimeout(() => {
-          this.props.router.push('/app')
+          this.props.router.push('/admin/app')
         }, 10)
       }
 

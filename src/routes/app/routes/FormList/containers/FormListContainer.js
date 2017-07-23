@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import { connect } from 'react-redux'
 
-import { noop, logout, inputChange, getFormList, getOpenForms } from '../modules/formList'
+import { logout, getFormList, getOpenForms, searchChange } from '../modules/formList'
 import { getTickets } from 'Api/reducer'
 
 /*  This is a container component. Notice it does not contain any JSX,
@@ -16,12 +16,10 @@ import FormList from '../components/FormList'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
-  noop,
   logout,
-  inputChange,
   getFormList,
-  getTickets,
   getOpenForms,
+  searchChange,
 }
 
 const api = (state) => state.api
@@ -31,6 +29,7 @@ const apiTickets = createSelector(api, (a) => a.get('tickets'))
 
 const formList = (state) => state.formList
 const users = createSelector(formList, (t) => t.get('users'))
+const search = createSelector(formList, (t) => t.get('search'))
 const forms = createSelector(formList, (t) => {
   try {
     return t.get('forms').sortBy((e) => e.get('createdTime')).toArray()
@@ -46,6 +45,7 @@ const mapStateToProps = (state) => ({
   user: user(state),
   token: token(state),
   forms: forms(state),
+  search: search(state),
 })
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:

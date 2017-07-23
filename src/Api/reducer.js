@@ -388,7 +388,7 @@ export const XXXgetUserForms = (where) => {
 	}
 }
 
-export const getFormById = memoize({ttl: 5000}, (formId, ticket) => {
+export const getFormById = memoize({ttl: 4000}, (formId, ticket) => {
 	return (dispatch, getState) => {
 		dispatch(requestStart())
 		var token = getState().api.getIn(['token','id'])
@@ -425,20 +425,22 @@ export const getFormById = memoize({ttl: 5000}, (formId, ticket) => {
 	}
 })
 
-export const getForms = memoize({ttl: 5000}, () => {
+export const getForms = memoize({ttl: 1000}, (filterParam) => {
 	return (dispatch, getState) => {
+		var token = getState().api.getIn(['token','id'])
 		dispatch(requestStart())
 		return new Promise((resolve) => {
-			var filterParam = {
-				order: 'updatedTime DESC',
-				include: {
-					relation: 'tickets',
-					scope: {
-						include: 'sender',
-					},
-				}
-			}
-			return Api.getForms(filterParam)
+			filterParam = Object.assign(filterParam, {
+				order: ['ticketStatus DESC', 'updatedTime DESC'],
+				limit: 100,
+				// include: {
+				// 	relation: 'tickets',
+				// 	scope: {
+				// 		include: 'sender',
+				// 	},
+				// }
+			})
+			return Api.getForms(filterParam, token)
 				.then((data) => {
 					if (data.error) {
 						dispatch(requestError(data.error))
@@ -580,7 +582,7 @@ export const updateForm = memoize({ttl: 500}, (formValues) => {
 	}
 })
 
-
+// -- Tickets
 
 export const getTickets = memoize({ttl: 10000}, (filterParam) => {
 	return (dispatch, getState) => {
@@ -709,6 +711,128 @@ export const getFormView = (id, link) => {
 	}
 }
 
+// -- user
+export const getUserById = memoize({ttl: 5000}, (userId) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+
+		return new Promise((resolve) => {
+			// var cachedData = getCache('users', userId, getState().api)
+			// if (cachedData) {
+			// 	return resolve(cachedData)
+			// }
+
+			return Api.getUserById(userId, token)
+				.then((data) => {
+					if (data.error) {
+						dispatch(requestError(data.error))
+					}
+					else {
+						// let dataObj = {[userId]: data}
+						// dispatch(mergeInKey('users',fromJS(dataObj)))
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+export const getUsers = memoize({ttl: 500}, (filterParam) => {
+	return (dispatch, getState) => {
+		var token = getState().api.getIn(['token','id'])
+		dispatch(requestStart())
+		return new Promise((resolve) => {
+			// var filterParam = {
+			// 	order: 'updatedTime DESC',
+			// 	include: {
+			// 		relation: 'tickets',
+			// 		scope: {
+			// 			include: 'sender',
+			// 		},
+			// 	}
+			// }
+			return Api.getUsers(filterParam, token)
+				.then((data) => {
+					if (data.error) {
+						dispatch(requestError(data.error))
+					}
+					else {
+						// let dataObj = data.reduce((result, item) => {
+						// 	result[item.id] = item
+						// 	return result
+						// }, {})
+						
+						// dispatch(mergeInKey('users', fromJS(dataObj)))
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+export const createUser = memoize({ttl: 500}, (userValues) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+
+		return new Promise((resolve) => {
+			return Api.createUser(userValues, token)
+				.then((data) => {
+					if (data.error || data.statusCode) {
+						dispatch(requestError(data.error))
+					}
+					else {
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+export const updateUser = memoize({ttl: 500}, (userId, userValues) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+
+		return new Promise((resolve) => {
+			return Api.updateUser(userId, userValues, token)
+				.then((data) => {
+					if (data.error || data.statusCode) {
+						dispatch(requestError(data.error))
+					}
+					else {
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+export const deleteUser = memoize({ttl: 500}, (userId) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+
+		return new Promise((resolve) => {
+			return Api.deleteUser(userId, token)
+				.then((data) => {
+					if (data.error || data.statusCode) {
+						dispatch(requestError(data.error))
+					}
+					else {
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
 
 // -- admin API related --
 
@@ -777,6 +901,11 @@ export const actions = {
 	getTickets,
 	addTicket,
 	addReadByTickets,
+	getUserById,
+	getUsers,
+	createUser,
+	updateUser,
+	deleteUser,
 	login,
 	logout,
 }

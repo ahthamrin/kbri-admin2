@@ -85,11 +85,15 @@ const areaOptions = (pdata) => {
         {
           // name: 'Revenue',
           type: 'bar',
-          // barCategoryGap: '35%',
+          min: 47,
+          minInterval: 1,
+          // barCategoryGap: '30%',
+          barGap: '15%',
           data: prefectures.map((d)=> { return (pdata ? pdata.get(d) : 0); }),
           itemStyle: {
             normal: {
-              color: CHARTCONFIG.color.success
+              color: CHARTCONFIG.color.success,
+              label : {show: true, position: 'inside'}
             }
           },
           lineStyle: {
@@ -110,7 +114,7 @@ const areaOptions = (pdata) => {
 };
 
 const Chart = (props) => (
-  <ReactEcharts style={{height: '600px'}} option={areaOptions(props.stats)} showLoading={false} />
+  <ReactEcharts style={{height: '850px'}} option={areaOptions(props.stats)} showLoading={false} />
 );
 
 module.exports = Chart;

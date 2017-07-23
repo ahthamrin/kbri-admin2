@@ -21,7 +21,7 @@ function onAppInit(dispatch) {
     PlainRoute objects to build route definitions.   */
 
 export const createRoutes = (store) => ({
-  path        : '/',
+  path        : '/admin',
   component   : CoreLayout,
   onEnter: onAppInit(store.dispatch),
   indexRoute: Login(store),

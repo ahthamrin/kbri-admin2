@@ -10,3 +10,12 @@ For example:
 @import './variables/components';
 @import './themes/default';
 */
+
+
+.fixed-action-btn {
+    position: fixed;
+    right: 23px;
+    bottom: 69px;
+    margin-bottom: 0;
+    z-index: 998;
+}

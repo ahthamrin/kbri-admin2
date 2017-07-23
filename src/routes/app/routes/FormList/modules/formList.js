@@ -1,4 +1,5 @@
-import { fromJS } from 'immutable';
+import { fromJS } from 'immutable'
+import qs from 'qs'
 
 import Api from 'Api'
 import { actions as apiActions, API_LOGOUT_SUCCESS, API_MERGEIN_KEY } from 'Api/reducer'
@@ -13,8 +14,11 @@ export const FORM_LIST_SUCCESS = 'FORM_LIST_SUCCESS'
 export const FORM_LIST_ERROR = 'FORM_LIST_ERROR'
 export const FORM_LIST_DOUBLE_ASYNC = 'FORM_LIST_DOUBLE_ASYNC'
 
+export const FORM_LIST_SEARCH_CHANGE = 'FORM_LIST_SEARCH_CHANGE'
+
 export const FORM_LIST_MERGEIN_TICKETS = 'FORM_LIST_MERGEIN_TICKETS'
 export const FORM_LIST_MERGEIN_KEY = 'FORM_LIST_MERGEIN_KEY'
+export const FORM_LIST_SETIN_KEY = 'FORM_LIST_SETIN_KEY'
 
 // ------------------------------------
 // Actions
@@ -27,20 +31,17 @@ export function noop () {
   }
 }
 
-
-export function inputChange (name, val, validator) {
+*/
+export function searchChange (search) {
   return {
-    type: FORM_LIST_INPUT_CHANGE,
-    name,
-    val,
-    validator,
+    type: FORM_LIST_SEARCH_CHANGE,
+    search,
   }
 }
-*/
 
-export function mergeInKey(key, data) {
+export function setInKey(key, data) {
   return {
-    type: FORM_LIST_MERGEIN_KEY,
+    type: FORM_LIST_SETIN_KEY,
     key,
     data,
   }
@@ -80,15 +81,26 @@ export const getOpenForms = () => {
 }
 
 
-export const getFormList = (category, offset) => {
-  console.log('getFormList', category, offset)
+export const getFormList = (category, skip, query) => {
+  console.log('getFormList', category, skip, query)
   return (dispatch, getState) => {
- 
+
     var params = {
         where: {and: [{type: category}, {ticketStatus: {inq: ['open', 'submitted', 'close']}}]},
-        offset:offset*20,
+        skip:skip*100,
       }
 
+    var qObj = query ? qs.parse(query.substr(1)) : null
+
+    if (qObj) {
+      console.log('qObj', qObj)
+      Object.keys(qObj).forEach((k) => {
+        if (k == 'nama')
+          params.where.and.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
+        else
+          params.where.and.push({[k]:qObj[k]})
+      })
+    }
     var fields
 
     // fields are dependent on the form category
@@ -117,7 +129,7 @@ export const getFormList = (category, offset) => {
             return result
           }, {})
 
-          dispatch(mergeInKey( 'forms', fromJS(dataObj) ))
+          dispatch(setInKey( 'forms', fromJS(dataObj) ))
         }
 
         // to test memoize cache
@@ -160,6 +172,16 @@ const ACTION_HANDLERS = {
       .mergeIn([action.key], action.data)
   },
 
+  [FORM_LIST_SETIN_KEY] : (state, action) => {
+    return state
+      .setIn([action.key], action.data)
+  },
+
+  [FORM_LIST_SEARCH_CHANGE]: (state, action) => {
+    return state
+      .set('search', action.search)
+  },
+
   [FORM_LIST_SUCCESS]    : (state, action) => {
     return state
       .merge({resetStatus: 'success', message: action.message})
@@ -175,6 +197,7 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = fromJS({
+  search: '',
   message: '',
   userForms: {},
   tickets: {},

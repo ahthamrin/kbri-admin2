@@ -12,7 +12,7 @@ import BenchmarkChart from './BenchmarkChart';
 
 const SelectionChart = (props) => (
   <div className="row">
-    <div className="col-xl-6">
+    <div className="col-xl-10">
       <div className="box box-default">
         <div className="box-header">{props.title}</div>
         <div className="box-body">

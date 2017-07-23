@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 
 import Converter from 'utils/converter'
 
+// const ApiUrl = 'https://sakuraindonesia.jp/';
 const ApiUrl = 'https://kbri.jaringan.info/';
 
 const jsonToURI = (json) => encodeURIComponent(JSON.stringify(json));
@@ -168,6 +169,12 @@ Api.getTickets = (param, auth) => request('api/tickets', 'GET', param, auth)
 Api.addReadByTickets = (where, data, auth) => requestWhereData('api/tickets/addReadBy', 'POST', where, data, auth, jsonHeaders)
 // XXX Why two fetches? OPTIONS then GET
 
+// --- users CRUD ---
+Api.createUser = (param, auth) => request('api/users', 'POST', param, auth, jsonHeaders)
+Api.getUsers = (param, auth) => request('api/users', 'GET', param ? param : undefined, auth)
+Api.getUserById = (id, auth) => request('api/users/'+id, 'GET', undefined, auth )
+Api.updateUser = (id, param, auth) => request('api/users/'+id, 'PUT', param ? param : undefined, auth, jsonHeaders)
+Api.deleteUser = (id, auth) => request('api/users/'+id, 'DELETE', undefined, auth, jsonHeaders)
 
 // --- KBRI RSS ---
 Api.getKbriRSS = (auth) => request('p/kbri-rss', 'GET', null, auth)

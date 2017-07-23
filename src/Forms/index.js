@@ -180,10 +180,13 @@ export function getFormTitle(formValues) {
 
 		case 'LaporanKemajuanStudi':
 			return {
-				title: 'Periode '+formValues.get('triwulanLapor')+' '+formValues.get('tahunLapor'),
+				title: formValues.get('nama') +' ('+formValues.get('seklNama')+'/'+formValues.get('triwulanLapor')+' '+formValues.get('tahunLapor')+')',
 			}
 
 		case 'LaporanKelulusan':
+			return {
+				title: formValues.get('nama') +' ('+formValues.get('seklNama')+')',
+			}
 
 			break;
 
