@@ -29,6 +29,12 @@ export const BANTUAN_DARURAT_FORM =
           fullWidth: true,
           validator: validation.nonempty,
         },
+        {
+          name: 'chkIniDarurat',
+          label: 'Ini benar adalah permintaan bantuan yang bersifat darurat.',
+          uiType: 'checkbox',
+          // initValue: 'benar',
+        },
       ]
 };
 

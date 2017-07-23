@@ -77,7 +77,7 @@ export class Dashboard extends React.Component {
     if ( !this.props.token ) {
       console.log('should change location');
       setTimeout(() => {
-        this.props.router.push('/admin') // XXX hardwired. See XXX
+        this.props.router.push('/admin/') // XXX hardwired. See XXX
       }, 10)
     }
 

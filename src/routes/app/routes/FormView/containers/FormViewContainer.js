@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import { connect } from 'react-redux'
 
-import { setFormId, noop, logout, inputChange, sendMessage } from '../modules/formView'
+import { setFormId, noop, logout, inputChange, formInputChange, sendMessage, updateForm } from '../modules/formView'
 import { getFormView, getOpenForms, getTickets } from 'Api/reducer'
 
 /*  This is a container component. Notice it does not contain any JSX,
@@ -20,13 +20,16 @@ const mapDispatchToProps = {
   noop,
   logout,
   inputChange,
+  formInputChange,
   sendMessage,
+  updateForm,
   getTickets,
 }
 
 const formView = (state) => state.formView
 const formId = (state) => state.formView.get('formId')
 const message = (state) => state.formView.get('message')
+const ticketMessage = (state) => state.formView.get('ticketMessage')
 
 const api = (state) => state.api
 const token = createSelector(api, (a) => a.getIn(['token','id']))
@@ -51,6 +54,7 @@ const mapStateToProps = (state) => ({
   tickets: tickets(state),
   formValues: formValues(state),
   message: message(state),
+  ticketMessage: ticketMessage(state),
 })
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:

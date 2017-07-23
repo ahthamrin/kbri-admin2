@@ -43,7 +43,9 @@ export function generateForm(formValues, modifier) {
 			}
 			catch(e) {}
 			try {
-				if (formValues.get('jnsVisa').match(/(epa |medical |train|designated|transferee)/i)) {
+// SELECTIONS.jenisVisa = ['', 'Intra-company Transferee', 'Designated Activities', 'Trainee', 'Technical Intern Training', 'Medical Services', 'EPA Care Worker', 'EPA Nurse', 'College Student', 'Precollege Student', 'Student', 'Researcher', 'Professor', 'Cultural Activities', 'Artist', 'Engineer', 'Entertainer', 'Instructor', 'Investor/Business Manager', 'Journalist', 'Legal/Accounting Services', 'Specialist in Humanities/Intl Services', 'Religious Activities', 'Skilled Labor', 'Dependent', 'Permanent Resident', 'Spouse/Child of Permanent Resident', 'Spouse/Child of Japanese National', 'Dwikewarganegaraan (tanpa visa)', 'Official', 'Diplomat', 'Jenis Lain (tulis)']
+				if (formValues.get('jnsVisa').match(/(Intra-company Transferee|Designated Activities|Trainee|Technical Intern Training|Medical Services|EPA Care Worker|EPA Nurse|Researcher|Professor|Cultural Activities|Artist|Engineer|Entertainer|Instructor|Investor|Journalist|Legal|Specialist in Humanities|Skilled Labor)/i)) {
+				// if (formValues.get('jnsVisa').match(/(epa |medical |train|designated|transferee)/i)) {
 					forms = forms.concat(LAPOR_DIRI_PEKERJA_FORM_LIST)
 				}
 			}
@@ -102,6 +104,31 @@ export function getFormFieldNames(schema) {
 	return fieldNames
 }
 
+export function getFormFields(schema) {
+	// get an array of field names
+	if (!Array.isArray(schema))
+		schema = [schema]
+	var fields = schema.reduce((acc, form) => {
+		acc = acc.concat(form.schema.filter((f) => f.uiType != 'divider' || f.uiType != 'subheader'))
+		return acc
+	}, [])
+	return fields
+}
+
+export function getPrintData(schema, values) {
+	if (!Array.isArray(schema))
+		schema = [schema]
+
+	var printRule
+	try {
+		if (schema[0].schema[0].name == 'print') { // print must be the first item in the schema
+			printRule = schema[0].schema[0].printRule
+		}
+	}
+	catch(e) {}
+	return printRule
+}
+
 export function getFormPreloadParams(formType) {
 	switch (formType) {
 		case 'LaporDiri':
@@ -138,11 +165,7 @@ export function getFormPreloadParams(formType) {
 			}
 
 		case 'LaporanKemajuanStudi':
-
 		case 'LaporanKelulusan':
-
-			break;
-
 		case 'PemilikBarangPindahan':
 		case 'PermohonanPaspor':
 			return {
@@ -167,12 +190,14 @@ export function getFormPreloadParams(formType) {
 	}
 
 }
+
 export function getFormTitle(formValues) {
 	switch (formValues.get('type')) {
 		case 'PemilikBarangPindahan':
 		case 'LaporanKepulangan':
 		case 'LaporDiri':
 		case 'PermohonanPaspor':
+		case 'LaporanKelulusan':
 
 			return {
 				title: formValues.get('nama'),
@@ -180,16 +205,8 @@ export function getFormTitle(formValues) {
 
 		case 'LaporanKemajuanStudi':
 			return {
-				title: formValues.get('nama') +' ('+formValues.get('seklNama')+'/'+formValues.get('triwulanLapor')+' '+formValues.get('tahunLapor')+')',
+				title: formValues.get('nama') + ' ('+formValues.get('seklNama')+'/'+formValues.get('triwulanLapor')+' '+formValues.get('tahunLapor')+')',
 			}
-
-		case 'LaporanKelulusan':
-			return {
-				title: formValues.get('nama') +' ('+formValues.get('seklNama')+')',
-			}
-
-			break;
-
 			break;
 
 		default:

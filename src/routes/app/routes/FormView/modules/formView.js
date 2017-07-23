@@ -13,6 +13,7 @@ export const FORM_VIEW_LOGOUT_ERROR = 'FORM_VIEW_LOGOUT_ERROR'
 export const FORM_VIEW_SUCCESS = 'FORM_VIEW_SUCCESS'
 export const FORM_VIEW_ERROR = 'FORM_VIEW_ERROR'
 export const FORM_VIEW_FORM_ID = 'FORM_VIEW_FORM_ID'
+export const FORM_VIEW_FORM_INPUT_CHANGE = 'FORM_VIEW_FORM_INPUT_CHANGE'
 export const FORM_VIEW_FORM_VALUES = 'FORM_VIEW_FORM_VALUES'
 export const FORM_VIEW_FORM_TICKETS = 'FORM_VIEW_FORM_TICKETS'
 export const FORM_VIEW_FORM_MERGEIN_TICKETS = 'FORM_VIEW_FORM_MERGEIN_TICKETS'
@@ -28,9 +29,18 @@ export function noop () {
   }
 }
 
-export function inputChange (val) {
+export function inputChange (name, val) {
   return {
     type: FORM_VIEW_INPUT_CHANGE,
+    name,
+    val,
+  }
+}
+
+export function formInputChange (name, val) {
+  return {
+    type: FORM_VIEW_FORM_INPUT_CHANGE,
+    name,
     val,
   }
 }
@@ -112,7 +122,7 @@ const getImages = (formValues, dispatch) => {
 
 export const sendMessage = () => {
   return (dispatch, getState) => {
-    var message = getState().formView.get('message')
+    var message = getState().formView.get('ticketMessage')
     var formId = getState().formView.get('formId')
     var formUserId = getState().formView.getIn(['formValues', 'userId'])
     return dispatch(apiActions.addTicket(formId, formUserId, message))
@@ -127,7 +137,7 @@ export const sendMessage = () => {
           type: FORM_VIEW_FORM_MERGEIN_TICKETS,
           tickets,
         })
-        dispatch(inputChange(''))
+        dispatch(inputChange('ticketMessage', ''))
       }
     })
   }
@@ -163,6 +173,39 @@ export const getFormView = (auth) => {
   }
 }
 
+export const updateForm = (status) => {
+  return (dispatch, getState) => {
+    var currentUser = getState().api.getIn(['token','user','username'])
+    var formValues = getState().formView.get('formValues').toJS()
+    var origFormValues = getState().formView.get('formValues').toJS()
+
+    var formAttributes = {
+      id: formValues.id,
+      ticketStatus: status,
+      checkedBy: currentUser,
+      checkedTime: new Date()
+    }
+
+    if (formValues.lat && formValues.lng) {
+      Object.assign(formAttributes, {lat: formValues.lat, lng: formValues.lng})
+    }
+
+    dispatch(apiActions.patchForm(formAttributes))
+    .then((updatedValues) => {
+      if (updatedValues.error || updatedValues.statusCode) {
+        return dispatch(inputChange('message', updatedValues.message))
+      }
+
+      dispatch({
+        type: 'FORM_VIEW_SUCCESS',
+        message: 'Form telah diperbarui'
+      })
+
+    })
+    
+  }
+}
+
 export const logout = () => {
   return apiActions.logout()
 }
@@ -183,7 +226,16 @@ const ACTION_HANDLERS = {
   },
 
   [FORM_VIEW_FORM_VALUES] : (state, action) => {
-    return state.setIn(['formValues'], action.formValues)
+    return state
+      .merge({submitted: false, message: '', ticketMessage: ''})
+      .setIn(['formValues'], action.formValues)
+      .setIn(['origFormValues'], action.formValues)
+  },
+
+  [FORM_VIEW_FORM_INPUT_CHANGE] : (state, action) => {
+    return state
+      .set('message','')
+      .setIn(['formValues', action.name], action.val)
   },
 
   [FORM_VIEW_FORM_TICKETS] : (state, action) => {
@@ -197,17 +249,17 @@ const ACTION_HANDLERS = {
   [FORM_VIEW_INPUT_CHANGE] : (state, action) => {
     // console.log('ST', action, errMsg);
     return state
-      .set('message',action.val)
+      .set(action.name, action.val)
   },
 
   [FORM_VIEW_SUCCESS]  : (state, action) => {
     return state
-      .merge({resetStatus: 'success', message: action.message})
+      .merge({submitted: true, message: action.message})
   },
 
   [FORM_VIEW_ERROR] : (state, action) => {
     return state
-      .merge({resetStatus: 'error', message: action.message})
+      .merge({submitted: 'error', message: action.message})
   },
 }
 
@@ -215,11 +267,14 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = fromJS({
+  submitted: false,
   message: '',
+  origFormValues: {},
   formValues: {},
   formErrors: {},
   formId: null,
-  tickets: {}
+  tickets: {},
+  ticketMessage: '',
 })
 
 export default function formViewReducer (state = initialState, action) {

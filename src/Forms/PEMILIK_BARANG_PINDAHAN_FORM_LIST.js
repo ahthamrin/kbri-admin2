@@ -6,6 +6,18 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
   'name': 'Data Pemilik Barang Pindahan',
   'schema': // order is as they appear on the form
       [
+        {
+          name: 'print',
+          printRule: [
+            ['nama', true],
+          ]
+        },
+        {
+          name: 'msgBrgPindah',
+          label: '',
+          uiType: 'markdown',
+          placeholder: 'Download Template Formulir Daftar Barang Pindahan [di sini](https://kbritokyo.jp/layanan-wni/pengurusan-barang-pindahan/).',
+        },
         { 
           name: 'subh-pemilik-barang',
           uiType: 'subheader',
@@ -17,7 +29,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Nama Lengkap',
           placeholder: 'Nama lengkap',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
           autocomplete: (thisNama) => {return {where: {type: 'LaporDiri', nama: thisNama, ticketStatus:{inq:['open','close']} }, limit: 1, order: 'updatedTime DESC' };},
           // autocomplete is a function that returns the filter param for userForms query
         },
@@ -27,7 +39,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'No Paspor/SPLP',
           placeholder: 'Nomor paspor',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'jnsPaspor',
@@ -35,7 +47,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Jenis Paspor',
           placeholder: 'Biasa/Pejabat/Diplomat',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'warganegara',
@@ -43,7 +55,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Warganegara',
           placeholder: 'Indonesia/Jepang/dll.',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pekJpJenis',
@@ -51,7 +63,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Pekerjaan',
           placeholder: 'Mis: trainee/karyawan',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
       ],
 },
@@ -79,7 +91,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           maxHeight: 200,
           label: 'Provinsi',
           selections: SELECTIONS.prefecture,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtJpKota',
@@ -87,7 +99,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Kota dan Kecamatan',
           placeholder: 'Mis: Chiba-shi Naka-ku',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtJpDaerah',
@@ -95,7 +107,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Daerah dan Nomor',
           placeholder: 'Mis: Honcho 1-23-4',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtJpKamar',
@@ -118,7 +130,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           // type: 'tel',
           label: 'Alamat Email',
           placeholder: 'Mis: akun@example.net.id',
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
 
 
@@ -144,7 +156,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Jalan dan Nomor, RT/RW',
           placeholder: 'Mis: Jl. Imam Bonjol 10',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtIdDaerah',
@@ -152,7 +164,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Kelurahan, Kecamatan',
           placeholder: 'Mis: Jagakarsa, Pasar Minggu',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtIdKota',
@@ -160,7 +172,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Kota',
           placeholder: 'Mis: Jakarta Selatan',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtIdProv',
@@ -168,7 +180,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           maxHeight: 200,
           label: 'Provinsi',
           selections: SELECTIONS.provinsi,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtIdKodepos',
@@ -201,9 +213,9 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           name: 'dsrTugasJepang',
           uiType: 'text',
           label: 'Dasar Penugasan di Jepang',
-          placeholder: 'Surat Keputusan/dll.',
+          placeholder: 'Surat Keputusan/dll. jika ada',
           fullWidth: true,
-          validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'tglDatang',
@@ -217,9 +229,9 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           name: 'dsrSelesaiTugasJepang',
           uiType: 'text',
           label: 'Dasar Selesai Penugasan di Jepang',
-          placeholder: 'Surat Keputusan/dll.',
+          placeholder: 'Surat Keputusan/dll. jika ada',
           fullWidth: true,
-          validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'tglKeluarJp',
@@ -235,7 +247,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Nomor Penerbangan',
           placeholder: 'GA 874/SQ 635/dll.',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'jmlKeluarga',
@@ -243,15 +255,15 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Jumlah anggota keluarga pengikut',
           placeholder: '0 jika tidak ada/1/2/dst.',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
-          name: 'brgPindahAlat',
+          name: 'brgPindahCara',
           uiType: 'text',
           // type: 'tel',
           label: 'Barang pindahan dikirim dengan',
           placeholder: 'laut/udara/dll.',
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'brgPindahPerusahaan',
@@ -259,7 +271,7 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           label: 'Nama perusahaan pengangkut',
           placeholder: 'nama perusahaan',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'tglBrgPindah',
@@ -269,6 +281,14 @@ export const PEMILIK_BARANG_PINDAHAN_FORM_LIST = [
           placeholder: 'DD/MM/YYYY',
           validator: validation.dateDDMMYYYY,
         },
+        {
+          name: 'docBrgPindah',
+          label: 'Daftar Barang Pindahan',
+          uiType: 'filepicker',
+          placeholder: 'Unggah file barang pindahan (pdf/word/excel)',
+          // validator: validation.alphanum,
+        },
+
       ],
 },];
 

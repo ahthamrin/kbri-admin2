@@ -31,14 +31,14 @@ class NavRightList extends React.Component {
             menuStyle={{minWidth: '150px'}}
                     >
             <MenuItem
-              value="/app/dashboard"
+              value="/admin/app/"
               primaryText="Dashboard"
               style={{fontSize: '14px', lineHeight: '48px'}}
               innerDivStyle={listItemStyle}
               leftIcon={<i className="material-icons">home</i>}
                         />
             <MenuItem
-              value="/app/page/about"
+              value="/admin/about"
               primaryText="About"
               innerDivStyle={listItemStyle}
               style={{fontSize: '14px', lineHeight: '48px'}}

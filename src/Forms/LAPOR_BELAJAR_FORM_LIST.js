@@ -1,9 +1,11 @@
 import validation from 'utils/validation'
+import SELECTIONS from './selections'
 
 export const LAPOR_BELAJAR_FORM_LIST = [
 { 'formId': 200, // formId 200 - 220 for lapor belajar related
   'name': 'Data Diri',
   'schema': // order is as they appear on the form
+
       [
         { 
           name: 'sub-datalapor', 
@@ -23,6 +25,63 @@ export const LAPOR_BELAJAR_FORM_LIST = [
           label: 'Laporan Triwulan Tahun',
           selections: [''].concat([-3,-2,-1,0].map( (i) => { return (new Date()).getFullYear()+i; })),
           validator: validation.nonempty,
+        },
+        {
+          name: 'nama',
+          uiType: 'text',
+          label: 'Nama Lengkap',
+          placeholder: 'Nama sesuai paspor',
+          fullWidth: true,
+          validator: validation.nonempty,
+          autocomplete: (thisNama) => {return {where: {type: 'LaporDiri', nama: thisNama, ticketStatus:{inq:['open','close']} }, limit: 1, order: 'updatedTime DESC' };},
+        },
+        {
+          name: 'tempatLahir',
+          uiType: 'text',
+          label: 'Tempat Lahir',
+          placeholder: 'Tempat lahir sesuai paspor',
+          fullWidth: true,
+          validator: validation.nonempty,
+        },
+        {
+          name: 'tglLahir',
+          uiType: 'text',
+          // type: 'tel',
+          label: 'Tanggal lahir',
+          placeholder: 'DD/MM/YYYY',
+          validator: validation.dateDDMMYYYY,
+        },
+        {
+          name: 'agama',
+          uiType: 'select',
+          label: 'Agama',
+          selections: SELECTIONS.agama,
+          validator: validation.nonempty,
+        },
+        {
+          name: 'paspor',
+          uiType: 'text',
+          label: 'No Paspor/SPLP',
+          placeholder: 'Nomor paspor',
+          fullWidth: true,
+          validator: validation.nonempty,
+        },
+        {
+          name: 'tglPaspor',
+          uiType: 'text',
+          // type: 'tel',
+          label: 'Tanggal Habis Berlaku',
+          placeholder: 'DD/MM/YYYY',
+          validator: validation.dateDDMMYYYY,
+        },
+        { 
+          name: 'divider',
+          uiType: 'divider',
+        },
+        { 
+          name: 'sub-instansi',
+          uiType: 'subheader',
+          label: 'Instansi',
         },
         {
           name: 'instNama',
@@ -67,6 +126,120 @@ export const LAPOR_BELAJAR_FORM_LIST = [
       ],
 },
 { 'formId': 201,
+  'name': 'Alamat',
+  'schema':
+      [ 
+        { 
+          name: 'subh-alamat-jp',
+          uiType: 'subheader',
+          label: 'Alamat di Jepang',
+        },
+        {
+          name: 'almtJpKodepos',
+          uiType: 'text',
+          // type: 'tel',
+          label: 'Kode Pos',
+          placeholder: '123-4567',
+          validator: validation.postalCodeJp,
+        },
+        {
+          name: 'almtJpProv',
+          uiType: 'select',
+          maxHeight: 200,
+          label: 'Provinsi',
+          selections: SELECTIONS.prefecture,
+          validator: validation.nonempty,
+        },
+        {
+          name: 'almtJpKota',
+          uiType: 'text',
+          label: 'Kota dan Kecamatan',
+          placeholder: 'Mis: Chiba-shi Naka-ku',
+          fullWidth: true,
+          validator: validation.nonempty,
+        },
+        {
+          name: 'almtJpDaerah',
+          uiType: 'text',
+          label: 'Daerah dan Nomor',
+          placeholder: 'Mis: Honcho 1-23-4',
+          fullWidth: true,
+          validator: validation.nonempty,
+        },
+        {
+          name: 'almtJpKamar',
+          uiType: 'text',
+          label: 'Nama Gedung dan No Kamar',
+          placeholder: 'Mis: Gaia Biru 1023',
+          fullWidth: true,
+        },
+        {
+          name: 'almtJpNotel',
+          uiType: 'text',
+          // type: 'tel',
+          label: 'Nomor Telepon/HP',
+          placeholder: 'Mis: 080-1234-5678',
+          validator: validation.phoneNoJp,
+        },
+        { 
+          name: 'divider',
+          uiType: 'divider',
+        },
+        { 
+          name: 'sub-alamat-id',
+          uiType: 'subheader',
+          label: 'Alamat di Indonesia',
+        },
+        {
+          name: 'almtIdKamar',
+          uiType: 'text',
+          label: 'Nama Gedung dan No Kamar (bila ada)',
+          placeholder: 'Mis: Apartemen Graha 1034',
+          fullWidth: true,
+        },
+        {
+          name: 'almtIdJalan',
+          uiType: 'text',
+          label: 'Jalan dan Nomor, RT/RW',
+          placeholder: 'Mis: Jl. Imam Bonjol 10',
+          fullWidth: true,
+          validator: validation.nonempty,
+        },
+        {
+          name: 'almtIdDaerah',
+          uiType: 'text',
+          label: 'Kelurahan, Kecamatan',
+          placeholder: 'Mis: Jagakarsa, Pasar Minggu',
+          fullWidth: true,
+          validator: validation.nonempty,
+        },
+        {
+          name: 'almtIdKota',
+          uiType: 'text',
+          label: 'Kota',
+          placeholder: 'Mis: Jakarta Selatan',
+          fullWidth: true,
+          validator: validation.nonempty,
+        },
+        {
+          name: 'almtIdProv',
+          uiType: 'select',
+          maxHeight: 200,
+          label: 'Provinsi',
+          selections: SELECTIONS.provinsi,
+          validator: validation.nonempty,
+        },
+        {
+          name: 'almtIdKodepos',
+          uiType: 'text',
+          // type: 'tel',
+          label: 'Kode Pos',
+          placeholder: 'Mis: 12530',
+          validator: validation.postalCodeId,
+        },
+      ],
+},
+{ 'formId': 202,
   'name': 'Sekolah & Biaya',
   'schema': // order is as they appear on the form
       [
@@ -96,7 +269,7 @@ export const LAPOR_BELAJAR_FORM_LIST = [
           uiType: 'select',
           maxHeight: 200,
           label: 'Tingkat Studi',
-          selections: ['', 'Undergraduate', 'Master', 'Doctoral', 'Diploma', 'Training', 'Research', 'Sekolah', ],
+          selections: SELECTIONS.tingkatStudi,
           validator: validation.nonempty,
         },
         {
@@ -168,7 +341,7 @@ export const LAPOR_BELAJAR_FORM_LIST = [
       ]
 },
 
-{ 'formId': 201,
+{ 'formId': 203,
   'name': 'Laporan Belajar',
   'schema':
       [ 
@@ -181,7 +354,7 @@ export const LAPOR_BELAJAR_FORM_LIST = [
           name: 'lapbelStatus',
           uiType: 'textarea',
           label: 'Uraian Ringkas Laporan Belajar',
-          placeholder: 'Tulis mata kuliah/subjek yang diambil, hasil ujian, penyelesaian karya tulis/tesis, program yang diambil pada semster/tahun ini dll.',
+          placeholder: 'Tulis mata kuliah/subjek yang diambil, hasil ujian, penyelesaian karya tulis/tesis, program yang diambil pada semester/tahun ini dll.',
           fullWidth: true,
         },
         {
@@ -208,33 +381,33 @@ export const LAPOR_BELAJAR_FORM_LIST = [
           label: 'Dokumen Pendukung Laporan Belajar',
         },
         {
-          name: 'imgLapbelDok1',
+          name: 'docLapbelDok1',
           label: 'Dokumen Pendukung 1',
-          uiType: 'imagepicker',
+          uiType: 'filepicker',
           placeholder: 'Unggah dokumen pendukung',
         },
         {
-          name: 'imgLapbelDok2',
+          name: 'docLapbelDok2',
           label: 'Dokumen Pendukung 2',
-          uiType: 'imagepicker',
+          uiType: 'filepicker',
           placeholder: 'Unggah dokumen pendukung',
         },
         {
-          name: 'imgLapbelDok3',
+          name: 'docLapbelDok3',
           label: 'Dokumen Pendukung 3',
-          uiType: 'imagepicker',
+          uiType: 'filepicker',
           placeholder: 'Unggah dokumen pendukung',
         },
         {
-          name: 'imgLapbelDok4',
+          name: 'docLapbelDok4',
           label: 'Dokumen Pendukung 4',
-          uiType: 'imagepicker',
+          uiType: 'filepicker',
           placeholder: 'Unggah dokumen pendukung',
         },
         {
-          name: 'imgLapbelDok5',
+          name: 'docLapbelDok5',
           label: 'Dokumen Pendukung 5',
-          uiType: 'imagepicker',
+          uiType: 'filepicker',
           placeholder: 'Unggah dokumen pendukung',
         },
       ],

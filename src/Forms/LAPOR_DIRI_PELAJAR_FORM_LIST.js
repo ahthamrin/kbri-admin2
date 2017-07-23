@@ -17,7 +17,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Nama Bapak',
           placeholder: 'Nama lengkap',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pelIbu',
@@ -25,7 +25,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Nama Ibu',
           placeholder: 'Nama lengkap',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pelWali',
@@ -33,7 +33,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Nama Wali',
           placeholder: 'Nama lengkap',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pelPasangan',
@@ -41,7 +41,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Nama Isteri/Suami',
           placeholder: 'Nama lengkap',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pelAnak',
@@ -49,7 +49,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Jumlah dan Nama Anak',
           placeholder: '(yang masih hidup) Misal:\nAdi (lahir 2000)\nBayu (lahir 2002)',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
       ]
 },
@@ -68,7 +68,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Lembaga Pendidikan',
           placeholder: 'Nama universitas/lembaga training',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
          {
           name: 'seklStatus',
@@ -76,7 +76,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           maxHeight: 200,
           label: 'Status Lembaga',
           selections: SELECTIONS.statusSekolah,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'seklJurusan',
@@ -84,7 +84,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Jurusan',
           placeholder: 'Nama Jurusan',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
          {
           name: 'seklTingkat',
@@ -92,7 +92,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           maxHeight: 200,
           label: 'Tingkat Studi',
           selections: SELECTIONS.tingkatStudi,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         { 
           name: 'divider',
@@ -109,7 +109,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Sumber Biaya',
           placeholder: 'beasiswa MEXT/Pemerintah RI/yayasan/biaya sendiri...',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'seklBulanan',
@@ -118,7 +118,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Jumlah Tunjangan/Beasiswa',
           placeholder: 'jumlah per bulan',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'seklSponsor',
@@ -126,7 +126,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Nama Sponsor di Jepang',
           placeholder: 'Nama sponsor',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'seklAlmtSponsor',
@@ -134,7 +134,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Alamat Sponsor di Jepang',
           placeholder: 'Mis: 1-2-3 Honcho, Naka-ku, Tokyo 123-4567',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'seklTelSponsor',
@@ -143,7 +143,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Telepon Sponsor di Jepang',
           placeholder: 'Mis: 03-1234-5678',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
       ]
 },
@@ -162,7 +162,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Nama Instansi dan Jabatan',
           placeholder: 'Kementerian/Lembaga, jabatan',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'instNIP',
@@ -170,7 +170,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'NIP/NOPEG',
           placeholder: 'Nomor pegawai',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'instSKPemerintah',
@@ -178,7 +178,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Surat Keputusan Pemerintah',
           placeholder: 'Nomor SK dan lampirkan',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'imgSKPemerintah',
@@ -215,7 +215,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Jalan dan Nomor, RT/RW',
           placeholder: 'Mis: Jl. Imam Bonjol 10',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'almtInstKota',
@@ -223,7 +223,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Kota',
           placeholder: 'Mis: Jakarta Selatan',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'almtInstProv',
@@ -231,7 +231,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           maxHeight: 200,
           label: 'Provinsi',
           selections: SELECTIONS.provinsi,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'almtInstKodepos',
@@ -258,7 +258,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Sekolah Dasar',
           placeholder: 'Nama Sekolah Dasar',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pendSDTempat',
@@ -266,7 +266,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Alamat SD',
           placeholder: 'Kota, provinsi/negara jika luar negeri',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pendSDTahun',
@@ -274,7 +274,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Tahun SD (awal s.d. akhir)',
           placeholder: 'mis: 2000-2006',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pendSDTamat',
@@ -282,7 +282,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           maxHeight: 200,
           label: 'Tamat',
           selections: SELECTIONS.statusTamat,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         
         {
@@ -291,7 +291,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Sekolah Menengah Pertama',
           placeholder: 'Nama SMP',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pendSMPTempat',
@@ -299,7 +299,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Alamat SMP',
           placeholder: 'Kota, provinsi/negara jika luar negeri',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pendSMPTahun',
@@ -307,7 +307,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Tahun SMP (awal s.d. akhir)',
           placeholder: 'mis: 2000-2006',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pendSMPTamat',
@@ -315,7 +315,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           maxHeight: 200,
           label: 'Tamat',
           selections: SELECTIONS.statusTamat,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         
         {
@@ -324,7 +324,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Sekolah Menengah Atas',
           placeholder: 'Nama SMA',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pendSMATempat',
@@ -332,7 +332,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Alamat SMA',
           placeholder: 'Kota, provinsi/negara jika luar negeri',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pendSMATahun',
@@ -340,7 +340,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Tahun SMA (awal s.d. akhir)',
           placeholder: 'mis: 2000-2006',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pendSMATamat',
@@ -348,7 +348,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           maxHeight: 200,
           label: 'Tamat',
           selections: SELECTIONS.statusTamat,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         
         {
@@ -357,7 +357,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Universitas/Akademi',
           placeholder: 'Nama Universitas/Akademi',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pendUnivTempat',
@@ -365,7 +365,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Alamat Univ',
           placeholder: 'Kota, provinsi/negara jika luar negeri',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pendUnivTahun',
@@ -373,7 +373,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Tahun Univ (awal s.d. akhir)',
           placeholder: 'mis: 2000-2006',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pendUnivTamat',
@@ -381,7 +381,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           maxHeight: 200,
           label: 'Tamat',
           selections: SELECTIONS.statusTamat,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         
         {
@@ -390,7 +390,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Master',
           placeholder: 'Nama universitas S2',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pendMasterTempat',
@@ -398,7 +398,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Alamat Universitas',
           placeholder: 'Kota, provinsi/negara jika luar negeri',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pendMasterTahun',
@@ -406,7 +406,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           label: 'Tahun Master (awal s.d. akhir)',
           placeholder: 'mis: 2000-2006',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pendMasterTamat',
@@ -414,7 +414,7 @@ export const LAPOR_DIRI_PELAJAR_FORM_LIST = [
           maxHeight: 200,
           label: 'Tamat',
           selections: SELECTIONS.statusTamat,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         { 
           name: 'divider',

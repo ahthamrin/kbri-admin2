@@ -11,7 +11,7 @@ const START_FORM = {
         // label: 'Nama Lengkap',
         placeholder: 'Nama Lengkap Sesuai Paspor',
         fullWidth: true,
-        validator: validation.nonempty,
+        validator: validation.alphanum,
       },
       {
         name: 'paspor',
@@ -19,7 +19,7 @@ const START_FORM = {
         // label: 'No Paspor/SPLP',
         placeholder: 'Nomor Paspor/SPLP',
         fullWidth: true,
-        validator: validation.nonempty,
+        validator: validation.alphanumstrict,
       },
       {
         name: 'tglLahir',

@@ -568,7 +568,30 @@ export const updateForm = memoize({ttl: 500}, (formValues) => {
 		var token = getState().api.getIn(['token','id'])
 
 		return new Promise((resolve) => {
-			return Api.updateForm(formValues.id, formValues, token)
+			return Api.updateForm(formId, formValues, token)
+				.then((data) => {
+					if (data.error || data.statusCode) {
+						dispatch(requestError(data.error))
+					}
+					else {
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+
+export const patchForm = memoize({ttl: 500}, (formValues) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+		var formId = formValues.id
+		delete formValues.id
+
+		return new Promise((resolve) => {
+			return Api.patchForm(formId, formValues, token)
 				.then((data) => {
 					if (data.error || data.statusCode) {
 						dispatch(requestError(data.error))
@@ -896,6 +919,8 @@ export const actions = {
 	getFormById,
 	getForms,
 	getFormView,
+	updateForm,
+	patchForm,
 	submitForm,
 	getUserTickets,
 	getTickets,

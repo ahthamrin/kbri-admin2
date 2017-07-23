@@ -138,7 +138,7 @@ class ConfirmationBuilder extends React.Component {
       return this.getElementCache( schema, idx, this.props.values.get(schema.name), error );
     });
     return (
-      <Paper zDepth={1} style={{padding: '1rem'}}>
+      <Paper key={form.formId} zDepth={1} style={{padding: '1rem'}}>
       <div className="box box-transparent">
         {FormElements}
       </div>

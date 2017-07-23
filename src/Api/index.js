@@ -2,8 +2,8 @@ import 'whatwg-fetch';
 
 import Converter from 'utils/converter'
 
-// const ApiUrl = 'https://sakuraindonesia.jp/';
-const ApiUrl = 'https://kbri.jaringan.info/';
+const ApiUrl = 'https://sakuraindonesia.jp/';
+// const ApiUrl = 'https://kbri.jaringan.info/';
 
 const jsonToURI = (json) => encodeURIComponent(JSON.stringify(json));
 const uriToJSON = (urijson) => JSON.parse(decodeURIComponent(urijson));
@@ -159,6 +159,7 @@ Api.getForms = (param, auth) => request('api/Forms', 'GET', param ? param : unde
 Api.getFormById = (id, param, auth) => request('api/Forms/'+id, 'GET', param ? param : undefined, auth )
 
 Api.updateForm = (id, param, auth) => request('api/Forms/'+id, 'PUT', param ? param : undefined, auth, jsonHeaders)
+Api.patchForm = (id, param, auth) => request('api/Forms/'+id, 'PATCH', param ? param : undefined, auth, jsonHeaders)
 
 // --- tickets CRUD ---
 Api.createTicket = (param, auth) => request('api/tickets', 'POST', param, auth, jsonHeaders)

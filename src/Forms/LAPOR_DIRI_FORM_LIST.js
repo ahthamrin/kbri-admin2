@@ -6,6 +6,13 @@ export const LAPOR_DIRI_FORM_LIST = [
   'name': 'Data Diri',
   'schema': // order is as they appear on the form
       [
+        // {
+        //   name: 'print',
+        //   printRule: [
+        //     ['nama', true],
+        //     ['almtJp', ['almtJpKodepos', 'almtJpProv', 'almtJpKota', 'almtJpDaerah', 'almtJpKamar']],
+        //   ]
+        // },
         { 
           name: 'sub-datadiri', 
           uiType: 'subheader',
@@ -17,14 +24,14 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'Nama Lengkap',
           placeholder: 'Nama sesuai paspor',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'jnsKelamin',
           uiType: 'select',
           label: 'Jenis Kelamin',
           selections: SELECTIONS.jenisKelamin,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'tempatLahir',
@@ -32,7 +39,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'Tempat Lahir',
           placeholder: 'Tempat lahir sesuai paspor',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'tglLahir',
@@ -47,14 +54,14 @@ export const LAPOR_DIRI_FORM_LIST = [
           uiType: 'select',
           label: 'Status Pernikahan',
           selections: SELECTIONS.statusNikah,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'agama',
           uiType: 'select',
           label: 'Agama',
           selections: SELECTIONS.agama,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         { 
           name: 'divider',
@@ -71,7 +78,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'No Paspor/SPLP',
           placeholder: 'Nomor paspor',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanumstrict,
         },
         {
           name: 'noregPaspor',
@@ -79,7 +86,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'No Registrasi',
           placeholder: 'Nomor registrasi',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'tempatPaspor',
@@ -87,7 +94,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'Dikeluarkan di',
           placeholder: 'Tempat dikeluarkan',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'tglPaspor',
@@ -150,7 +157,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'Rencana Meninggalkan Jepang',
           maxHeight: 100,
           selections: ['', 'Belum Tahu/Menetap'].concat([0,1,2,3,4,5,6,7,8,9,10].map( (i) => { return (new Date()).getFullYear()+i; })),
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
       ],
 },
@@ -177,7 +184,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           maxHeight: 200,
           label: 'Provinsi',
           selections: SELECTIONS.prefecture,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtJpKota',
@@ -185,7 +192,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'Kota dan Kecamatan',
           placeholder: 'Mis: Chiba-shi Naka-ku',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtJpDaerah',
@@ -193,7 +200,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'Daerah dan Nomor',
           placeholder: 'Mis: Honcho 1-23-4',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtJpKamar',
@@ -232,7 +239,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'Jalan dan Nomor, RT/RW',
           placeholder: 'Mis: Jl. Imam Bonjol 10',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtIdDaerah',
@@ -240,7 +247,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'Kelurahan, Kecamatan',
           placeholder: 'Mis: Jagakarsa, Pasar Minggu',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtIdKota',
@@ -248,7 +255,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'Kota',
           placeholder: 'Mis: Jakarta Selatan',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtIdProv',
@@ -256,7 +263,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           maxHeight: 200,
           label: 'Provinsi',
           selections: SELECTIONS.provinsi,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtIdKodepos',
@@ -281,7 +288,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'Nama',
           placeholder: 'Nama orang yang bisa dihubungi',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'kontakIdHub',
@@ -289,7 +296,7 @@ export const LAPOR_DIRI_FORM_LIST = [
           label: 'Hubungan dengan Anda',
           placeholder: 'Mis: Ayah kandung',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'kontakIdNotel',
@@ -338,7 +345,13 @@ export const LAPOR_DIRI_FORM_LIST = [
           placeholder: 'Unggah halaman belakang kartu identitas Jepang',
           validator: validation.nonemptyFile,
         },
-      ],
+        {
+          name: 'msgUpload',
+          label: '',
+          uiType: 'markdown',
+          placeholder: 'Foto dokumen identitas Anda menggunakan ponsel pintar atau pilih file scan dokumen identitas Anda di komputer kemudian unggah.',
+        },
+         ],
 },
 ];
 

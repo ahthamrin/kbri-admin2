@@ -19,7 +19,7 @@ export const LAPOR_DIRI_PEKERJA_FORM_LIST = [
           label: 'Jenis Pekerjaan',
           placeholder: 'Mis: trainee/karyawan',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'pekJpNama',
@@ -27,7 +27,7 @@ export const LAPOR_DIRI_PEKERJA_FORM_LIST = [
           label: 'Nama Tempat Bekerja',
           placeholder: 'Nama perusahaan/rumah sakit/panti jompo/dll.',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         { 
           name: 'subh-alamat-pekJp',
@@ -48,7 +48,7 @@ export const LAPOR_DIRI_PEKERJA_FORM_LIST = [
           maxHeight: 200,
           label: 'Provinsi',
           selections: SELECTIONS.prefecture,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtPekJpKota',
@@ -56,7 +56,7 @@ export const LAPOR_DIRI_PEKERJA_FORM_LIST = [
           label: 'Kota dan Kecamatan',
           placeholder: 'Mis: Chiba-shi Naka-ku',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtPekJpDaerah',
@@ -64,7 +64,7 @@ export const LAPOR_DIRI_PEKERJA_FORM_LIST = [
           label: 'Daerah dan Nomor',
           placeholder: 'Mis: Honcho 1-23-4',
           fullWidth: true,
-          validator: validation.nonempty,
+          validator: validation.alphanum,
         },
         {
           name: 'almtPekJpKamar',
@@ -96,7 +96,7 @@ export const LAPOR_DIRI_PEKERJA_FORM_LIST = [
           label: 'Nama Kontak/Penanggung Jawab di Tempat Kerja',
           placeholder: 'Nama lengkap',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pekJpTantouNotel',
@@ -112,7 +112,7 @@ export const LAPOR_DIRI_PEKERJA_FORM_LIST = [
           label: 'Masa Kontrak Kerja',
           placeholder: 'Mis: 1 tahun/1,5 tahun',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pekJpGaji',
@@ -120,7 +120,7 @@ export const LAPOR_DIRI_PEKERJA_FORM_LIST = [
           label: 'Gaji per Bulan',
           placeholder: 'besar gaji bersih (yen) per bulan',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pekJpBukuPelautSel',
@@ -211,7 +211,7 @@ export const LAPOR_DIRI_PEKERJA_FORM_LIST = [
           label: 'Pekerjaan di Indonesia',
           placeholder: 'Nama perusahaan\ndan jenis pekerjaan',
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
         {
           name: 'pekJpPekIdAlamat',
@@ -244,7 +244,7 @@ export const LAPOR_DIRI_PEKERJA_FORM_LIST = [
           placeholder: '',
           selections: ['', 'SMP atau sederajat', 'SMA atau sederajat', 'D1 atau sederajat', 'D2 atau sederajat', 'D3 atau sederajat', 'D4 atau sederajat', 'S1 atau sederajat', 'S2 atau sederajat', 'S3 atau sederajat', 'Lainnya'],
           fullWidth: true,
-          // validator: validation.nonempty,
+          // validator: validation.alphanum,
         },
       ]
 },

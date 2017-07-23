@@ -6,7 +6,25 @@ export const MOHON_PASPOR_FORM_LIST = [
   'name': 'Data Pemohon',
   'schema': // order is as they appear on the form
       [
-        { 
+        // { 
+        //   name: 'sub-tgl-datang',
+        //   uiType: 'subheader',
+        //   label: 'Rencana Permohonan Paspor ke KBRI',
+        // },
+        // {
+        //   name: 'msgDatang',
+        //   label: '',
+        //   uiType: 'markdown',
+        //   placeholder: 'Harap perhatikan hal-hal berikut:\n'
+        //   + '1. Periksa kalender [hari libur layanan KBRI di](https://kbritokyo.jp/hari-libur/) untuk mengatur rencana kedatangan Anda.\n'
+        //   + '2. Proses pembuatan paspor dimulai dengan pengambilan foto dan sidik jari Anda di KBRI.\n'
+        //   + '3. Pembuatan paspor memerlukan waktu beberapa hari dan berdasarkan keputusan dari sistem yang terpusat di Jakarta.\n'
+        // },
+        // { 
+        //   name: 'divider',
+        //   uiType: 'divider',
+        // },
+         { 
           name: 'sub-permohonan',
           uiType: 'subheader',
           label: 'Permohonan (pilih yang sesuai)',
@@ -28,6 +46,14 @@ export const MOHON_PASPOR_FORM_LIST = [
           uiType: 'select',
           label: 'Pengubahan',
           selections: ['', 'Nama', 'Alamat Tempat Tinggal', 'Lain-lain'], // selections must start with an empty string
+        },
+        {
+          name: 'tglDatangAplikasi',
+          uiType: 'text',
+          // type: 'tel',
+          label: 'Tanggal rencana datang ',
+          placeholder: 'DD/MM/YYYY',
+          validator: validation.dateDDMMYYYY,
         },
         { 
           name: 'divider',
@@ -591,13 +617,13 @@ export const MOHON_PASPOR_FORM_LIST = [
           uiType: 'subheader',
           label: 'Unggah Dokumen',
         },
-        {
-          name: 'imgIdentPasfoto',
-          label: 'Pas Foto (Latar Putih)',
-          uiType: 'imagepicker',
-          placeholder: 'Unggah pas foto (latar putih)',
-          validator: validation.nonemptyFile,
-        },
+        // {
+        //   name: 'imgIdentPasfoto',
+        //   label: 'Pas Foto (Latar Putih)',
+        //   uiType: 'imagepicker',
+        //   placeholder: 'Unggah pas foto (latar putih)',
+        //   validator: validation.nonemptyFile,
+        // },
         {
           name: 'imgIdentPasporImg',
           label: 'Halaman Data Paspor',
@@ -620,6 +646,7 @@ export const MOHON_PASPOR_FORM_LIST = [
           validator: validation.nonemptyFile,
         },
       ],
+
 },];
 
 
