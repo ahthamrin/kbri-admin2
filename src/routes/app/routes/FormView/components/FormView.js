@@ -47,7 +47,7 @@ export class FormView extends React.Component {
     }
 
     if (!this.props.routeParams.formId) {
-      return this.props.router.push('/tickets/')
+      return this.props.router.push('/admin/')
     }
 
     this.props.setFormId(this.props.routeParams.formId)

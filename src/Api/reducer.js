@@ -211,6 +211,117 @@ the following thunks are used by logged in users
 
 ---- */
 
+export const getWniById = memoize({ttl: 4000}, (formId, ticket) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+		var userId = getState().api.getIn(['token','userId'])
+
+		var param = null
+
+		if (ticket) {
+			param = {include: {
+				relation: 'tickets',
+				scope: 'sender',
+			}}
+		}
+
+		return new Promise((resolve) => {
+			var cachedData = getCache('forms', formId, getState().api)
+			if (cachedData) {
+				return resolve(cachedData)
+			}
+
+			return Api.getWniById(formId, param, token)
+				.then((data) => {
+					if (data.error) {
+						dispatch(requestError(data.error))
+					}
+					else {
+						// let dataObj = {[formId]: data}
+						// dispatch(mergeInKey('forms',fromJS(dataObj)))
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+export const getWnis = memoize({ttl: 1000}, (filterParam) => {
+	return (dispatch, getState) => {
+		var token = getState().api.getIn(['token','id'])
+		dispatch(requestStart())
+		return new Promise((resolve) => {
+			filterParam = Object.assign(filterParam, {
+				order: ['createdTime DESC'],
+				limit: 100,
+			})
+			return Api.getWnis(filterParam, token)
+				.then((data) => {
+					if (data.error) {
+						dispatch(requestError(data.error))
+					}
+					else {
+						// let dataObj = data.reduce((result, item) => {
+						// 	result[item.id] = item
+						// 	return result
+						// }, {})
+						
+						// dispatch(mergeInKey('forms', fromJS(dataObj)))
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+export const updateWni = memoize({ttl: 500}, (formValues) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+
+		return new Promise((resolve) => {
+			return Api.updateWni(formId, formValues, token)
+				.then((data) => {
+					if (data.error || data.statusCode) {
+						dispatch(requestError(data.error))
+					}
+					else {
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+
+export const patchWni = memoize({ttl: 500}, (formValues) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+		var formId = formValues.id
+		delete formValues.id
+
+		return new Promise((resolve) => {
+			return Api.patchWni(formId, formValues, token)
+				.then((data) => {
+					if (data.error || data.statusCode) {
+						dispatch(requestError(data.error))
+					}
+					else {
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+
+
 // utility function to cache API request results
 
 const storeCache = (type, data, dispatch) => {

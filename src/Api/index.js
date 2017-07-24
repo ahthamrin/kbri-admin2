@@ -2,8 +2,8 @@ import 'whatwg-fetch';
 
 import Converter from 'utils/converter'
 
-const ApiUrl = 'https://sakuraindonesia.jp/';
-// const ApiUrl = 'https://kbri.jaringan.info/';
+// const ApiUrl = 'https://sakuraindonesia.jp/';
+const ApiUrl = 'https://kbri.jaringan.info/';
 
 const jsonToURI = (json) => encodeURIComponent(JSON.stringify(json));
 const uriToJSON = (urijson) => JSON.parse(decodeURIComponent(urijson));
@@ -129,6 +129,8 @@ Api.resetPassword = (param, auth) => request('p/reset-password', 'POST', param, 
 
 Api.requestPasswordReset = (param) => request('p/request-password-reset', 'POST', param, null, jsonHeaders)
 
+// --- WNI CRUD ---
+
 Api.findWni = (param, auth) => request('api/WNIs/findOne', 'GET', {where:param}, jsonHeaders)
 
 
@@ -137,6 +139,12 @@ Api.findWni = (param, auth) => request('api/WNIs/findOne', 'GET', {where:param},
 Api.updateWni = (id, param, auth) => request('api/WNIs/'+id, 'PUT', param, auth, jsonHeaders)
 
 Api.createWni = (param, auth) => request('api/WNIs/', 'POST', param, auth, jsonHeaders)
+Api.getWnis = (param, auth) => request('api/WNIs', 'GET', param ? param : undefined, auth)
+Api.getWniById = (id, param, auth) => request('api/WNIs/'+id, 'GET', param ? param : undefined, auth )
+
+Api.updateWni = (id, param, auth) => request('api/WNIs/'+id, 'PUT', param ? param : undefined, auth, jsonHeaders)
+Api.patchWni = (id, param, auth) => request('api/WNIs/'+id, 'PATCH', param ? param : undefined, auth, jsonHeaders)
+
 
 
 // --- images ---
