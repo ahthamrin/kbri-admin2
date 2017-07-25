@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
+import Divider from 'material-ui/Divider'
 import 'jquery-slimscroll/jquery.slimscroll.min';
 
 
@@ -105,12 +106,18 @@ class SidebarContent extends React.Component {
         <li className="nav-header"><span>Navigation</span></li>
         <li><FlatButton href="/admin/app"><i className="nav-icon material-icons">dashboard</i><span className="nav-text">Dashboard</span></FlatButton></li>
         <li><FlatButton href="/admin/app/data-graph"><i className="nav-icon material-icons">view_list</i><span className="nav-text">Data Grafik</span></FlatButton></li>
+        <li className="nav-divider" />
         <li><FlatButton href="/admin/app/form-list/LaporDiri/"><i className="nav-icon material-icons">list</i><span className="nav-text">Lapor Diri</span></FlatButton></li>
-        <li><FlatButton href="/admin/app/form-list/LaporanKepulangan/"><i className="nav-icon material-icons">list</i><span className="nav-text">Lapor Kepulangan</span></FlatButton></li>
         <li><FlatButton href="/admin/app/form-list/PermohonanPaspor/"><i className="nav-icon material-icons">list</i><span className="nav-text">Permohonan Paspor</span></FlatButton></li>
+        <li className="nav-divider" />
         <li><FlatButton href="/admin/app/form-list/LaporanKemajuanStudi/"><i className="nav-icon material-icons">list</i><span className="nav-text">Kemajuan Studi</span></FlatButton></li>
+        <li><FlatButton href="/admin/app/form-list/LaporanKelulusan/"><i className="nav-icon material-icons">list</i><span className="nav-text">Kelulusan</span></FlatButton></li>
+        <li className="nav-divider" />
+        <li><FlatButton href="/admin/app/form-list/LaporanKepulangan/"><i className="nav-icon material-icons">list</i><span className="nav-text">Lapor Kepulangan</span></FlatButton></li>
         <li><FlatButton href="/admin/app/form-list/PemilikBarangPindahan/"><i className="nav-icon material-icons">list</i><span className="nav-text">Pemilik Barang Pindahan</span></FlatButton></li>
-        <li><FlatButton href="/admin/app/form-list/DaftarBarangPindahan/"><i className="nav-icon material-icons">list</i><span className="nav-text">Daftar Barang Pindahan</span></FlatButton></li>
+        <li className="nav-divider" />
+        <li><FlatButton href="/admin/app/form-list/WNI/"><i className="nav-icon material-icons">list</i><span className="nav-text">Data WNI di Sistem</span></FlatButton></li>
+        <li><FlatButton href="/admin/app/user-list/"><i className="nav-icon material-icons">list</i><span className="nav-text">Data User SAKURA Admin</span></FlatButton></li>
       </ul>
       );
     /*

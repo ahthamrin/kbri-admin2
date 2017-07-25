@@ -1022,6 +1022,8 @@ export const actions = {
 	setToken,
 	findWni,
 	setWni,
+	getWnis,
+	getWniById,
 	findToken,
 	getImage,
 	postImage,

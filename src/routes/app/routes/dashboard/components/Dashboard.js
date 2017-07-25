@@ -82,7 +82,11 @@ export class Dashboard extends React.Component {
     }
 
     this.props.getTimeStats('LaporDiri')
+    this.props.getTimeStats('LaporanKepulangan')
     this.props.getTimeStats('PermohonanPaspor')
+    this.props.getTimeStats('LaporanKemajuanStudi')
+    this.props.getTimeStats('LaporanKelulusan')
+    this.props.getTimeStats('PemilikBarangPindahan')
     
   }
 
@@ -117,6 +121,10 @@ export class Dashboard extends React.Component {
     <QueueAnim type="bottom" className="ui-animate">
       <div key="1"><TimeStats title="Lapor Diri" type="LaporDiri" stats={this.props.timeStats} /></div>
       <div key="2"><TimeStats title="Permohonan Paspor" type="PermohonanPaspor" stats={this.props.timeStats} /></div>
+      <div key="３"><TimeStats title="Laporan Kemajuan Studi" type="LaporanKemajuanStudi" stats={this.props.timeStats} /></div>
+      <div key="4"><TimeStats title="Laporan Kelulusan" type="LaporanKelulusan" stats={this.props.timeStats} /></div>
+      <div key="5"><TimeStats title="Laporan Kepulangan" type="LaporanKepulangan" stats={this.props.timeStats} /></div>
+      <div key="6"><TimeStats title="Barang Pindahan" type="PemilikBarangPindahan" stats={this.props.timeStats} /></div>
     </QueueAnim>
 
   </div>

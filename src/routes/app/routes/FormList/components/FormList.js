@@ -36,7 +36,7 @@ export class FormList extends React.Component {
       }, 10)
     }
 
-    var formType = FORMS[this.props.routeParams.formCategory]
+    var formType = FORMS[this.props.routeParams.formCategory == 'WNI' ? 'LaporDiri' : this.props.routeParams.formCategory]
 
     if (formType) {
       this.props.getFormList(this.props.routeParams.formCategory, Number(this.props.routeParams.offset) || 0, location.search)
@@ -51,7 +51,7 @@ export class FormList extends React.Component {
       || nextProps.location != this.props.location) {
       console.log('componentWillReceiveProps', nextProps)
 
-      var formType = FORMS[nextProps.routeParams.formCategory]
+      var formType = FORMS[this.props.routeParams.formCategory == 'WNI' ? 'LaporDiri' : this.props.routeParams.formCategory]
       var offset = Number(nextProps.routeParams.offset) || 0
 
       if (formType) {
@@ -63,6 +63,8 @@ export class FormList extends React.Component {
   render() {
     var category = this.props.routeParams.formCategory
 
+    var formViewURL = category == 'WNI' ? 'wni-view' : 'form-view'
+
     var offset = Number(this.props.routeParams.offset) || 0
 
     var formLength = this.props.forms.length
@@ -73,7 +75,7 @@ export class FormList extends React.Component {
     return (
   <div className="container-fluid no-breadcrumbs with-maxwidth chapter">
     <article className="article">
-      <h2 className="article-title">{Converter.camelCasetoTitle(category)}</h2>
+      <h2 className="article-title">{category == 'WNI' ? 'Data WNI' : Converter.camelCasetoTitle(category)}</h2>
 
     <QueueAnim type="bottom" className="ui-animate">
       <div className='row'>
@@ -95,7 +97,7 @@ export class FormList extends React.Component {
           .map((v) => {
             return (
               <ListItem key={v.get('id')} secondaryText={moment(v.get('createdTime')).format('DD/MM/YYYY')} >
-                <div><Link to={'/admin/app/form-view/'+v.get('id')} >{getFormTitle(v).title}</Link></div>
+                <div><Link to={`/admin/app/${formViewURL}/`+v.get('id')} >{getFormTitle(v).title}</Link></div>
               </ListItem>
             )
           })}

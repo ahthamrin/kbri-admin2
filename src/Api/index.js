@@ -2,8 +2,8 @@ import 'whatwg-fetch';
 
 import Converter from 'utils/converter'
 
-// const ApiUrl = 'https://sakuraindonesia.jp/';
-const ApiUrl = 'https://kbri.jaringan.info/';
+const ApiUrl = 'https://sakuraindonesia.jp/';
+// const ApiUrl = 'https://kbri.jaringan.info/';
 
 const jsonToURI = (json) => encodeURIComponent(JSON.stringify(json));
 const uriToJSON = (urijson) => JSON.parse(decodeURIComponent(urijson));

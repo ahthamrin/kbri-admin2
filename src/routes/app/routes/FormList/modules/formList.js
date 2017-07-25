@@ -85,6 +85,43 @@ export const getFormList = (category, skip, query) => {
   console.log('getFormList', category, skip, query)
   return (dispatch, getState) => {
 
+    // WNIs model
+    if (category == 'WNI') {
+      var params = {
+        skip: skip*100,
+        fields: {id: true, nama: true, type: true, createdTime: true, updatedTime: true}
+      }
+
+      var qObj = query ? qs.parse(query.substr(1)) : null
+
+      if (qObj) {
+        console.log('qObj', qObj)
+        params.where = {and:[]}
+        Object.keys(qObj).forEach((k) => {
+          if (k == 'nama')
+            params.where.and.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
+          else
+            params.where.and.push({[k]:qObj[k]})
+        })
+      }
+
+      return dispatch(apiActions.getWnis(params))
+        .then((data) => {
+          if (data.error || data.statusCode) {
+
+          }
+          else {
+            let dataObj = data.reduce((result, item) => {
+              result[item.id] = item
+              return result
+            }, {})
+
+            dispatch(setInKey( 'forms', fromJS(dataObj) ))
+          }
+        })
+    }
+
+    // Forms model
     var params = {
         where: {and: [{type: category}, {ticketStatus: {inq: ['open', 'submitted', 'close']}}]},
         skip:skip*100,
@@ -116,8 +153,6 @@ export const getFormList = (category, skip, query) => {
       Object.assign(params, {fields})
     }
 
-
-
     return dispatch(apiActions.getForms(params))
       .then((data) => {
         if (data.error || data.statusCode) {
@@ -131,22 +166,6 @@ export const getFormList = (category, skip, query) => {
 
           dispatch(setInKey( 'forms', fromJS(dataObj) ))
         }
-
-        // to test memoize cache
-        // setTimeout(() => {
-        //   dispatch(apiActions.getUserForms({}))
-        //   .then((data) => {
-        //     console.log('getUserForms {}', data)
-        //   })
-        // }, 10000)
-
-        // setTimeout(() => {
-        //   dispatch(apiActions.getUserForms({}))
-        //   .then((data) => {
-        //     console.log('getUserForms {}', data)
-        //   })
-        // }, 15000)
-
       })
 
   }

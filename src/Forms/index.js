@@ -211,7 +211,9 @@ export function getFormTitle(formValues) {
 
 		default:
 
-			return
+			return {
+				title: formValues.get('nama'),
+			}
 
 	}
 }
