@@ -34,6 +34,8 @@ export class FormView extends React.Component {
     this.state = {
       brand: APPCONFIG.brand
     };
+
+    this.allowApprove = false
   }
 
   componentWillMount() {
@@ -75,8 +77,10 @@ export class FormView extends React.Component {
 
   mapClick = (mapObj) => {
     console.log('mapClick', mapObj)
-    this.props.formInputChange('lat', mapObj.lat)
-    this.props.formInputChange('lng', mapObj.lng)
+    if (this.allowApprove) { 
+      this.props.formInputChange('lat', mapObj.lat)
+      this.props.formInputChange('lng', mapObj.lng)
+    }
   }
 
   render() {
@@ -94,6 +98,13 @@ export class FormView extends React.Component {
     // console.log(this.props.formValues, this.props.tickets, FORM);
 
     var showMap = this.props.formValues.get('type') == 'LaporDiri'
+    try {
+    this.allowApprove = 
+      this.props.formValues.get('type').match(/(LaporDiri|LaporKepulangan)/) && this.props.fungsi.match(/(admin|imigrasi)/)
+      || this.props.formValues.get('type').match(/(LaporanKemajuanStudi|LaporanKelulusan)/) && this.props.fungsi.match(/dikbud/)
+      || this.props.formValues.get('type').match(/PemilikBarangPindahan/) && this.props.fungsi.match(/keuangan/)
+    }
+    catch(e) {}
 
     return (
   <div className="container-fluid no-breadcrumbs with-maxwidth chapter">
@@ -133,18 +144,21 @@ export class FormView extends React.Component {
       </div>
       }
 
-
+      { this.allowApprove &&
       <div className="box box-transparent" style={{marginTop: '2rem'}}>
         <RaisedButton label="Tolak Form" secondary={true} icon={<AlertError />} fullWidth 
           onTouchTap={()=>this.props.updateForm('open')}
         />
       </div>
+      }
 
+      { this.allowApprove &&
       <div className="box box-transparent">
         <RaisedButton label="Terima Form" primary={true} icon={<ActionCheckCircle />} fullWidth 
           onTouchTap={()=>this.props.updateForm('close')}
         />
       </div>
+      }
       <div>
         {this.props.message}
       </div>

@@ -189,8 +189,8 @@ Api.deleteUser = (id, auth) => request('api/users/'+id, 'DELETE', undefined, aut
 Api.getKbriRSS = (auth) => request('p/kbri-rss', 'GET', null, auth)
 
 // -- Admin page ---
-Api.getFormTimeStats = (options, auth) => requestRaw('api/Forms/timeStats', 'GET', 'options', options, auth)
-Api.getFormSelectionStats = (options, auth) => requestRaw('api/Forms/selectionStats', 'GET', 'options', options, auth)
+Api.getFormTimeStats = (options, auth) => requestRaw('api/Forms/timeStats', 'GET', 'where', options, auth)
+Api.getFormSelectionStats = (options, auth) => requestRaw('api/Forms/selectionStats', 'GET', 'where', options, auth)
 
 
 

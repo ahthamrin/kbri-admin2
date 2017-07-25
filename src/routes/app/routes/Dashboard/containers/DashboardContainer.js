@@ -19,6 +19,8 @@ const timeStats = createSelector(dashboard, (s) => s.get('timeStats'))
 
 const api = (state) => state.api
 const token = createSelector(api, (a) => a.getIn(['token','id']))
+const user = createSelector(api, (a) => a.getIn(['token','user']))
+const fungsi = createSelector(api, (a) => a.getIn(['token','user','fungsi']))
 const apiLoading = createSelector(api, (a) => a.get('loading'))
 const apiError = createSelector(api, (a) => a.get('error'))
 const apiErrorData = createSelector(api, (a) => a.get('errorData'))
@@ -29,6 +31,8 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state) => ({
   token: token(state),
+  user: user(state),
+  fungsi: fungsi(state),
   apiLoading: apiLoading(state),
   apiError: apiError(state),
   apiErrorData: apiErrorData(state),

@@ -21,7 +21,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { isFixedHeader, colorOption } = this.props;
+    const { isFixedHeader, colorOption, logout } = this.props;
 
     return (
       <section className="app-header">
@@ -50,7 +50,7 @@ class Header extends React.Component {
           </div>
 
           <div className="top-nav-right">
-            <NavRightList />
+            <NavRightList logout={logout} />
           </div>
         </div>
       </section>

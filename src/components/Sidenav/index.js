@@ -70,7 +70,7 @@ class Sidebar extends React.Component {
         </section>
 
         <section className="sidebar-content">
-          <SidenavContent />
+          <SidenavContent fungsi={this.props.fungsi} />
         </section>
 
         <section className="sidebar-footer">

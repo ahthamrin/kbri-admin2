@@ -34,6 +34,7 @@ const ticketMessage = (state) => state.formView.get('ticketMessage')
 const api = (state) => state.api
 const token = createSelector(api, (a) => a.getIn(['token','id']))
 const user = createSelector(api, (a) => a.getIn(['token','user']))
+const fungsi = createSelector(api, (a) => a.getIn(['token','user', 'fungsi']))
 
 const form = createSelector(api, formId, (a, formId) => {
   try {
@@ -50,6 +51,7 @@ const formValues = createSelector(formView, (t) => t.get('formValues'))
 const mapStateToProps = (state) => ({
   token: token(state),
   user: user(state),
+  fungsi: fungsi(state),
   form: form(state),
   tickets: tickets(state),
   formValues: formValues(state),

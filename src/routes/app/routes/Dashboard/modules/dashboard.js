@@ -23,7 +23,30 @@ export const DASHBOARD_ERROR = 'DASHBOARD_ERROR'
 export const getTimeStats = (type) => {
   return (dispatch, getState) => {
 
-    return dispatch(getFormTimeStats({type}))
+    var where = {and: [{type}]}
+    var fungsiSearch = {}
+    if (type == 'LaporDiri') {
+      switch (getState().api.getIn(['token','user','fungsi'])) {
+        case 'dikbud':
+          fungsiSearch = {jnsVisa: {inq: ['College Student', 'Precollege Student', 'Student'] }}
+          break
+        case 'perhubungan':
+          fungsiSearch = {pekJpBukuPelautSel: 'YA'}
+          break
+        case 'naker':
+          fungsiSearch = {jnsVisa: {inq: ['Intra-company Transferee', 'Designated Activities', 'Trainee', 'Technical Intern Training', 'Medical Services', 'EPA Care Worker', 'EPA Nurse', 'Cultural Activities', 'Artist', 'Engineer', 'Entertainer', 'Instructor', 'Journalist', 'Legal/Accounting Services', 'Specialist in Humanities/Intl Services', 'Religious Activities', 'Skilled Labor' ] }}
+          break          
+
+        default:
+          break
+      }      
+    }
+    console.log('fungsiSearch', type, fungsiSearch)
+    if (fungsiSearch)
+      where.and.push(fungsiSearch)
+
+
+    return dispatch(getFormTimeStats(where))
     .then((data) => {
       console.log('getFormTimeStats', data);
       if (data.timeStats)

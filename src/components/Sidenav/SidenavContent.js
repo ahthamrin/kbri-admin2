@@ -101,23 +101,70 @@ class SidebarContent extends React.Component {
 
   render() {
 
+    var showLaporDiri
+      , showPermohonanPaspor
+      , showLaporanKemajuanStudi
+      , showLaporanKelulusan
+      , showLaporanKepulangan
+      , showPemilikBarangPindahan
+      , showWNI
+      , showUserList
+
+
+    switch (this.props.fungsi) {
+      case 'perhubungan':
+      case 'naker':
+        showLaporDiri = true
+        showWNI = true
+        break;
+      case 'keuangan':
+        showLaporanKepulangan = true
+        showPemilikBarangPindahan = true
+        showWNI = true
+        break;
+      case 'dikbud':
+        showLaporDiri = true
+        showLaporanKemajuanStudi = true
+        showLaporanKelulusan = true
+        showLaporanKepulangan = true
+        showWNI = true
+        break;
+      case 'imigrasi':
+        showLaporDiri = true
+        showPermohonanPaspor = true
+        showLaporanKepulangan = true
+        showPemilikBarangPindahan = true
+        showWNI = true
+        break;
+      case 'admin':
+        showLaporDiri = true
+        showPermohonanPaspor = true
+        showLaporanKemajuanStudi = true
+        showLaporanKelulusan = true
+        showLaporanKepulangan = true
+        showPemilikBarangPindahan = true
+        showWNI = true
+        showUserList = true
+        break
+      default:
+    }
+
+
     return (
       <ul className="nav" ref={(c) => { this.nav = c; }}>
         <li className="nav-header"><span>Navigation</span></li>
         <li><FlatButton href="/admin/app"><i className="nav-icon material-icons">dashboard</i><span className="nav-text">Dashboard</span></FlatButton></li>
         <li><FlatButton href="/admin/app/data-graph"><i className="nav-icon material-icons">view_list</i><span className="nav-text">Data Grafik</span></FlatButton></li>
         <li className="nav-divider" />
-        <li><FlatButton href="/admin/app/form-list/LaporDiri/"><i className="nav-icon material-icons">list</i><span className="nav-text">Lapor Diri</span></FlatButton></li>
-        <li><FlatButton href="/admin/app/form-list/PermohonanPaspor/"><i className="nav-icon material-icons">list</i><span className="nav-text">Permohonan Paspor</span></FlatButton></li>
-        <li className="nav-divider" />
-        <li><FlatButton href="/admin/app/form-list/LaporanKemajuanStudi/"><i className="nav-icon material-icons">list</i><span className="nav-text">Kemajuan Studi</span></FlatButton></li>
-        <li><FlatButton href="/admin/app/form-list/LaporanKelulusan/"><i className="nav-icon material-icons">list</i><span className="nav-text">Kelulusan</span></FlatButton></li>
-        <li className="nav-divider" />
-        <li><FlatButton href="/admin/app/form-list/LaporanKepulangan/"><i className="nav-icon material-icons">list</i><span className="nav-text">Lapor Kepulangan</span></FlatButton></li>
-        <li><FlatButton href="/admin/app/form-list/PemilikBarangPindahan/"><i className="nav-icon material-icons">list</i><span className="nav-text">Pemilik Barang Pindahan</span></FlatButton></li>
-        <li className="nav-divider" />
-        <li><FlatButton href="/admin/app/form-list/WNI/"><i className="nav-icon material-icons">list</i><span className="nav-text">Data WNI di Sistem</span></FlatButton></li>
-        <li><FlatButton href="/admin/app/user-list/"><i className="nav-icon material-icons">list</i><span className="nav-text">Data User SAKURA Admin</span></FlatButton></li>
+        { showLaporDiri && <li><FlatButton href="/admin/app/form-list/LaporDiri/"><i className="nav-icon material-icons">list</i><span className="nav-text">Lapor Diri</span></FlatButton></li> }
+        { showPermohonanPaspor && <li><FlatButton href="/admin/app/form-list/PermohonanPaspor/"><i className="nav-icon material-icons">list</i><span className="nav-text">Permohonan Paspor</span></FlatButton></li> }
+        { showLaporanKemajuanStudi && <li><FlatButton href="/admin/app/form-list/LaporanKemajuanStudi/"><i className="nav-icon material-icons">list</i><span className="nav-text">Kemajuan Studi</span></FlatButton></li> }
+        { showLaporanKelulusan && <li><FlatButton href="/admin/app/form-list/LaporanKelulusan/"><i className="nav-icon material-icons">list</i><span className="nav-text">Kelulusan</span></FlatButton></li> }
+        { showLaporanKepulangan && <li><FlatButton href="/admin/app/form-list/LaporanKepulangan/"><i className="nav-icon material-icons">list</i><span className="nav-text">Lapor Kepulangan</span></FlatButton></li> }
+        { showPemilikBarangPindahan && <li><FlatButton href="/admin/app/form-list/PemilikBarangPindahan/"><i className="nav-icon material-icons">list</i><span className="nav-text">Pemilik Barang Pindahan</span></FlatButton></li> }
+        { showWNI && <li><FlatButton href="/admin/app/form-list/WNI/"><i className="nav-icon material-icons">list</i><span className="nav-text">Data WNI di Sistem</span></FlatButton></li> }
+        { showUserList && <li className="nav-divider" /> }
+        { showUserList && <li><FlatButton href="/admin/app/user-list/"><i className="nav-icon material-icons">list</i><span className="nav-text">Data User SAKURA Admin</span></FlatButton></li> }
       </ul>
       );
     /*

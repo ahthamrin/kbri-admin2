@@ -10,6 +10,7 @@ import FORMS, { getFormTitle } from 'Forms'
 import APPCONFIG from 'constants/Config'
 
 import QueueAnim from 'rc-queue-anim'
+import qs from 'qs'
 
 import {List, ListItem} from 'material-ui/List'
 import TextField from 'material-ui/TextField'
@@ -22,7 +23,8 @@ export class FormList extends React.Component {
   constructor() {
     super();
     this.state = {
-      brand: APPCONFIG.brand
+      brand: APPCONFIG.brand,
+      listQuery: {}
     };
   }
 

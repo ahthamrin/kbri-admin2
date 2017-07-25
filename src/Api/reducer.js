@@ -970,13 +970,12 @@ export const deleteUser = memoize({ttl: 500}, (userId) => {
 
 // -- admin API related --
 
-export const getFormTimeStats = (options) => {
+export const getFormTimeStats = (where) => {
 	return (dispatch, getState) => {
 		dispatch(requestStart())
 		var token = getState().api.getIn(['token','id'])
-		var formList = getState().api
 		return new Promise((resolve) => {
-			return Api.getFormTimeStats(options, token)
+			return Api.getFormTimeStats(where, token)
 				.then((data) => {
 					if (!data.error) {
 						dispatch(requestSuccess())
@@ -990,13 +989,12 @@ export const getFormTimeStats = (options) => {
 	}
 }
 
-export const getFormSelectionStats = (options) => {
+export const getFormSelectionStats = (where) => {
 	return (dispatch, getState) => {
 		dispatch(requestStart())
 		var token = getState().api.getIn(['token','id'])
-		var formList = getState().api
 		return new Promise((resolve) => {
-			return Api.getFormSelectionStats(options, token)
+			return Api.getFormSelectionStats(where, token)
 				.then((data) => {
 					if (!data.error) {
 						dispatch(requestSuccess())

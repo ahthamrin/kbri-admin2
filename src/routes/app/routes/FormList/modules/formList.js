@@ -105,6 +105,31 @@ export const getFormList = (category, skip, query) => {
         })
       }
 
+
+      var fungsiSearch = {}
+      if (category == 'LaporDiri') {
+        switch (getState().api.getIn(['token','user','fungsi'])) {
+          case 'dikbud':
+            fungsiSearch = {jnsVisa: {inq: ['College Student', 'Precollege Student', 'Student'] }}
+            break
+          case 'perhubungan':
+            fungsiSearch = {pekJpBukuPelautSel: 'YA'}
+            break
+          case 'naker':
+            fungsiSearch = {jnsVisa: {inq: ['Intra-company Transferee', 'Designated Activities', 'Trainee', 'Technical Intern Training', 'Medical Services', 'EPA Care Worker', 'EPA Nurse', 'Cultural Activities', 'Artist', 'Engineer', 'Entertainer', 'Instructor', 'Journalist', 'Legal/Accounting Services', 'Specialist in Humanities/Intl Services', 'Religious Activities', 'Skilled Labor' ] }}
+            break          
+
+          default:
+            break
+        }      
+      }
+      console.log('fungsiSearch', category, fungsiSearch)
+      if (fungsiSearch)
+        if (params.where)
+          params.where.and.push(fungsiSearch)
+        else
+          params.where = fungsiSearch
+
       return dispatch(apiActions.getWnis(params))
         .then((data) => {
           if (data.error || data.statusCode) {
@@ -138,6 +163,28 @@ export const getFormList = (category, skip, query) => {
           params.where.and.push({[k]:qObj[k]})
       })
     }
+
+    var fungsiSearch = {}
+    if (category == 'LaporDiri') {
+      switch (getState().api.getIn(['token','user','fungsi'])) {
+        case 'dikbud':
+          fungsiSearch = {jnsVisa: {inq: ['College Student', 'Precollege Student', 'Student'] }}
+          break
+        case 'perhubungan':
+          fungsiSearch = {pekJpBukuPelautSel: 'YA'}
+          break
+        case 'naker':
+          fungsiSearch = {jnsVisa: {inq: ['Intra-company Transferee', 'Designated Activities', 'Trainee', 'Technical Intern Training', 'Medical Services', 'EPA Care Worker', 'EPA Nurse', 'Cultural Activities', 'Artist', 'Engineer', 'Entertainer', 'Instructor', 'Journalist', 'Legal/Accounting Services', 'Specialist in Humanities/Intl Services', 'Religious Activities', 'Skilled Labor' ] }}
+          break          
+
+        default:
+          break
+      }      
+    }
+    console.log('fungsiSearch', category, fungsiSearch)
+    if (fungsiSearch)
+      params.where.and.push(fungsiSearch)
+
     var fields
 
     // fields are dependent on the form category
