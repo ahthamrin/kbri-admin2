@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 
 import APPCONFIG from 'constants/Config';
 
+import Converter from 'utils/converter'
+
 import QueueAnim from 'rc-queue-anim';
 import PrefecturesChart from './PrefecturesChart';
 import AquisitionChart from './AquisitionChart';
@@ -71,11 +73,35 @@ export class DataGraph extends React.Component {
     if ( !this.props.token ) {
       console.log('should change location');
       setTimeout(() => {
-        this.props.router.push('/') // XXX hardwired. See XXX
+        this.props.router.push('/admin/') // XXX hardwired. See XXX
       }, 10)
     }
 
-    this.props.getSelectionStats('LaporDiri', 'almtJpProv', 'prefecture')
+    this.dashboardForms = ['LaporDiri']
+
+    try {
+      switch(this.props.fungsi) {
+        case 'admin':
+          this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKemajuanStudi', 'LaporanKelulusan', 'LaporanKepulangan', 'PemilikBarangPindahan']
+          break
+        case 'keuangan':
+          this.dashboardForms = ['LaporanKepulangan', 'PemilikBarangPindahan']
+          break
+        case 'dikbud':
+          this.dashboardForms = ['LaporDiri', 'LaporanKemajuanStudi', 'LaporanKelulusan' ]
+          break
+        case 'imigrasi':
+          this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKepulangan']
+          break
+        default:
+          this.dashboardForms = ['LaporDiri', 'LaporanKepulangan']
+      }
+    } catch(e) {}
+
+    this.dashboardForms.forEach((v) => this.props.getSelectionStats(v, 'almtJpProv', 'prefecture'))
+
+
+    // this.props.getSelectionStats('LaporDiri', 'almtJpProv', 'prefecture')
     
   }
 
@@ -103,6 +129,9 @@ export class DataGraph extends React.Component {
     }
   }
 
+      // <div key="1"><SelectionChart title="Lapor Diri per Provinsi" stats={this.props.selectionStats.get('LaporDiri')} /></div>
+      // <div key="2"><SelectionChart title="Permohonan Paspor per Provinsi" /></div>
+
   render() {
     return (
   <div className="container-fluid no-breadcrumbs with-maxwidth chapter">
@@ -110,8 +139,7 @@ export class DataGraph extends React.Component {
       <h2 className="article-title">Data Grafik</h2>
 
     <QueueAnim type="bottom" className="ui-animate">
-      <div key="1"><SelectionChart title="Lapor Diri per Provinsi" stats={this.props.selectionStats.get('LaporDiri')} /></div>
-      <div key="2"><SelectionChart title="Permohonan Paspor per Provinsi" /></div>
+      {this.dashboardForms.map((v,idx) => (<SelectionChart key={idx} title={Converter.camelCasetoTitle(v)} stats={this.props.selectionStats.get(v)} />))}
     </QueueAnim>
     </article>
 

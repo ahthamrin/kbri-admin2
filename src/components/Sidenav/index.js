@@ -63,7 +63,7 @@ class Sidebar extends React.Component {
               <ellipse cx="-815" cy="-2505" rx="715" ry="1875" transform="rotate(-210)" />
             </g>
           </svg>
-          <Link to="/" className="brand">{APPCONFIG.brand}</Link>
+          <Link to="/admin/" className="brand">{APPCONFIG.brand}</Link>
           <a href="javascript:;" className="collapsednav-toggler" onClick={this.onToggleCollapsedNav}>
             {toggleIcon}
           </a>

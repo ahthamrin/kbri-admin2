@@ -38,7 +38,7 @@ class MainApp extends React.Component {
         <Sidenav fungsi={this.props.fungsi} />
 
         <section id="page-container" className="app-page-container">
-          <Header logout={this.props.logout} />
+          <Header logout={this.props.logout} router={this.props.router}/>
 
           <div className="app-content-wrapper">
             <div className="app-content">
