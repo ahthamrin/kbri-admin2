@@ -5,6 +5,8 @@ import { Link } from 'react-router';
 import APPCONFIG from 'constants/Config';
 import NavLeftList from './NavLeftList';
 import NavRightList from './NavRightList';
+import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
 
 
 class Header extends React.Component {
@@ -21,7 +23,10 @@ class Header extends React.Component {
   }
 
   render() {
-    const { isFixedHeader, colorOption, logout } = this.props;
+    const { isFixedHeader, colorOption, logout , router } = this.props;
+
+            // <NavLeftList />
+            // <NavRightList logout={logout} />
 
     return (
       <section className="app-header">
@@ -46,11 +51,14 @@ class Header extends React.Component {
           </div>
 
           <div className="top-nav-left hidden-md-down">
-            <NavLeftList />
           </div>
 
           <div className="top-nav-right">
-            <NavRightList logout={logout} />
+              <FlatButton
+              onTouchTap={() => {logout().then(()=> {console.log('logout'); router.push('/admin/')})}}
+              label="Logout"
+              icon={<i className="material-icons">forward</i>}
+            />
           </div>
         </div>
       </section>

@@ -45,15 +45,15 @@ export class Login extends React.Component {
             break
 
           case 'LOGIN_FAILED':
-            this.setState({message:'Email dan password salah.'})
+            this.setState({message:'username dan password salah'})
             break
 
           case 'LOGIN_FAILED_EMAIL_NOT_VERIFIED':
-            this.setState({message:'Email belum diverifikasi.'})
+            this.setState({message:'Email belum diverifikasi'})
             break
 
           default:
-            this.setState({message:'Maaf, ada masalah dengan sistem.'})
+            // this.setState({message:'Maaf, ada masalah dengan sistem'})
         }
       }
 
@@ -71,7 +71,7 @@ export class Login extends React.Component {
                   <div className="card-content">
 
                     <section className="logo text-center">
-                      <h1><a href="#/">{this.state.brand}</a></h1>
+                      <h3>SAKURA Indonesia Admin</h3>
                     </section>
 
                     <form className="form-horizontal">
@@ -97,15 +97,11 @@ export class Login extends React.Component {
                     </form>
                   </div>
                   <div className="card-action no-border text-right">
-                    <span onClick={()=>this.props.loginUser(this.props.formValues.toJS())} className="color-primary">Login</span>
+                    <RaisedButton onTouchTap={()=>this.props.loginUser(this.props.formValues.toJS())} label='Login' primary={true} />
+                    <p style={{'color':'red'}} >{this.state.message}</p>
                   </div>
                 </div>
 
-                <div className="additional-info">
-                  <Link to="/sign-up">Daftar</Link>
-                  <span className="divider-h" />
-                  <Link to="/forgot-password">Lupa password?</Link>
-                </div>
           </div>
             </div>
           </QueueAnim>
