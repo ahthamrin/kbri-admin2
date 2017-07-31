@@ -145,7 +145,9 @@ Api.getWniById = (id, param, auth) => request('api/WNIs/'+id, 'GET', param ? par
 Api.updateWni = (id, param, auth) => request('api/WNIs/'+id, 'PUT', param ? param : undefined, auth, jsonHeaders)
 Api.patchWni = (id, param, auth) => request('api/WNIs/'+id, 'PATCH', param ? param : undefined, auth, jsonHeaders)
 
-
+// -- Admin page ---
+Api.getWniTimeStats = (options, auth) => requestRaw('api/WNIs/timeStats', 'GET', 'where', options, auth)
+Api.getWniSelectionStats = (options, auth) => requestRaw('api/WNIs/selectionStats', 'GET', 'where', options, auth)
 
 // --- images ---
 Api.postImage = (param, auth) => {

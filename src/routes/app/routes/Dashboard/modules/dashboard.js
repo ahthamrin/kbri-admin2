@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import { getFormTimeStats } from 'Api/reducer'
+import { getFormTimeStats, getWniTimeStats } from 'Api/reducer'
 
 // ------------------------------------
 // Constants
@@ -20,8 +20,31 @@ export const DASHBOARD_ERROR = 'DASHBOARD_ERROR'
     returns a function for lazy evaluation. It is incredibly useful for
     creating async actions, especially when combined with redux-thunk! */
 
+
+export const getWniStats = (where) => {
+  return (dispatch, getState) => {
+
+
+    return dispatch(getWniTimeStats(where))
+    .then((data) => {
+      console.log('getWniTimeStats', data);
+      if (data.timeStats)
+        dispatch({
+          type: DASHBOARD_TIME_STATS,
+          name: 'DataWNI',
+          val: data.timeStats,
+        })
+    })
+
+  }
+}
+
 export const getTimeStats = (type) => {
   return (dispatch, getState) => {
+
+    if (type == 'DataWNI') {
+      return dispatch(getWniStats({}))
+    }
 
     var where = {and: [{type}]}
     var fungsiSearch = {}
@@ -62,6 +85,7 @@ export const getTimeStats = (type) => {
 
 export const actions = {
   getTimeStats,
+  getWniTimeStats,
 }
 
 // ------------------------------------

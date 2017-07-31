@@ -52,10 +52,17 @@ const TimeStats = (props) => (
                   <span className="metric">{props.stats.getIn([props.type,'month']) || 0}</span>
                   <span className="metric-info">Bulan Ini</span>
                 </div>
+                { props.type == 'DataWNI' ?
+                <div className="col-xs-6 col-md-3 metric-box">
+                  <span className="metric">{props.stats.getIn([props.type,'total']) || 0}</span>
+                  <span className="metric-info">TOTAL</span>
+                </div>
+                :
                 <div className="col-xs-6 col-md-3 metric-box">
                   <span className="metric">{props.stats.getIn([props.type,'year']) || 0}</span>
                   <span className="metric-info">Tahun Ini</span>
                 </div>
+                }
               </div>
             </div>
           </div>
@@ -88,7 +95,7 @@ export class Dashboard extends React.Component {
     try {
       switch(this.props.fungsi) {
         case 'admin':
-          this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKemajuanStudi', 'LaporanKelulusan', 'LaporanKepulangan', 'PemilikBarangPindahan']
+          this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKemajuanStudi', 'LaporanKelulusan', 'LaporanKepulangan', 'PemilikBarangPindahan', 'DataWNI', ]
           break
         case 'keuangan':
           this.dashboardForms = ['LaporanKepulangan', 'PemilikBarangPindahan']
@@ -97,7 +104,7 @@ export class Dashboard extends React.Component {
           this.dashboardForms = ['LaporDiri', 'LaporanKemajuanStudi', 'LaporanKelulusan' ]
           break
         case 'imigrasi':
-          this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKepulangan']
+          this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKepulangan', 'DataWNI']
           break
         default:
           this.dashboardForms = ['LaporDiri', 'LaporanKepulangan']
@@ -136,7 +143,7 @@ export class Dashboard extends React.Component {
       try {
         switch(nextProps.fungsi) {
           case 'admin':
-            this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKemajuanStudi', 'LaporanKelulusan', 'LaporanKepulangan', 'PemilikBarangPindahan']
+            this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKemajuanStudi', 'LaporanKelulusan', 'LaporanKepulangan', 'PemilikBarangPindahan', 'DataWNI', ]
             break
           case 'keuangan':
             this.dashboardForms = ['LaporanKepulangan', 'PemilikBarangPindahan']
@@ -145,7 +152,7 @@ export class Dashboard extends React.Component {
             this.dashboardForms = ['LaporDiri', 'LaporanKemajuanStudi', 'LaporanKelulusan' ]
             break
           case 'imigrasi':
-            this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKepulangan']
+            this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKepulangan', 'DataWNI', ]
             break
           default:
             this.dashboardForms = ['LaporDiri', 'LaporanKepulangan']

@@ -10,6 +10,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import ContentSend from 'material-ui/svg-icons/content/send'
 import ActionCheckCircle from 'material-ui/svg-icons/action/check-circle'
+import ActionPrint from 'material-ui/svg-icons/action/print'
 import AlertError from 'material-ui/svg-icons/alert/error'
 import MapsPlace from 'material-ui/svg-icons/maps/place'
 
@@ -105,6 +106,11 @@ export class FormView extends React.Component {
       || this.props.formValues.get('type').match(/PemilikBarangPindahan/) && this.props.fungsi.match(/keuangan/)
     }
     catch(e) {}
+    try {
+    this.allowPrint = 
+      this.props.formValues.get('type').match(/PermohonanPaspor/) && this.props.fungsi.match(/(admin|imigrasi)/)
+    }
+    catch(e) {}
 
     return (
   <div className="container-fluid no-breadcrumbs with-maxwidth chapter">
@@ -143,6 +149,15 @@ export class FormView extends React.Component {
       </div>
       </div>
       }
+
+      { this.allowPrint &&
+      <div className="box box-transparent" style={{marginTop: '2rem'}}>
+        <RaisedButton label="Cetak Form" secondary={true} icon={<ActionPrint />} fullWidth 
+          onTouchTap={()=>{window.open('https://sakuraindonesia.jp/p/pdf-form/'+this.props.routeParams.formId, '_blank')}}
+        />
+      </div>
+      }
+
 
       { this.allowApprove &&
       <div className="box box-transparent" style={{marginTop: '2rem'}}>

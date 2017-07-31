@@ -1009,6 +1009,45 @@ export const getFormSelectionStats = (where) => {
 }
 
 
+export const getWniTimeStats = (where) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+		return new Promise((resolve) => {
+			return Api.getWniTimeStats(where, token)
+				.then((data) => {
+					if (!data.error) {
+						dispatch(requestSuccess())
+					}
+					else {
+						dispatch(requestError(data.error))
+					}
+					resolve(data)
+				})
+		})
+	}
+}
+
+export const getWniSelectionStats = (where) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+		return new Promise((resolve) => {
+			return Api.getWniSelectionStats(where, token)
+				.then((data) => {
+					if (!data.error) {
+						dispatch(requestSuccess())
+					}
+					else {
+						dispatch(requestError(data.error))
+					}
+					resolve(data)
+				})
+		})
+	}
+}
+
+
 
 
 export const actions = {
