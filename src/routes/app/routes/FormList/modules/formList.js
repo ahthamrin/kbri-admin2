@@ -40,6 +40,7 @@ export function searchChange (search) {
 }
 
 export function setInKey(key, data) {
+  console.log('setInKey', key, data)
   return {
     type: FORM_LIST_SETIN_KEY,
     key,
@@ -97,12 +98,23 @@ export const getFormList = (category, skip, query) => {
       if (qObj) {
         console.log('qObj', qObj)
         params.where = {and:[]}
+        var qList = []
         Object.keys(qObj).forEach((k) => {
-          if (k == 'nama')
-            params.where.and.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
+          if (k.match(/(nama|email|almt)/))
+            qList.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
           else
-            params.where.and.push({[k]:qObj[k]})
+            qList.push({[k]:qObj[k]})
         })
+
+        switch (qList.length) {
+          case 2:
+            params.where.and.push({or: qList})
+            break
+          case 1:
+            params.where.and.push(qList[0])
+            break
+          default:
+        }
       }
 
 
@@ -124,7 +136,7 @@ export const getFormList = (category, skip, query) => {
         }      
       }
       console.log('fungsiSearch', category, fungsiSearch)
-      if (fungsiSearch)
+      if (Object.keys(fungsiSearch).length)
         if (params.where)
           params.where.and.push(fungsiSearch)
         else
@@ -156,12 +168,24 @@ export const getFormList = (category, skip, query) => {
 
     if (qObj) {
       console.log('qObj', qObj)
+      params.where = {and:[]}
+      var qList = []
       Object.keys(qObj).forEach((k) => {
-        if (k == 'nama')
-          params.where.and.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
+        if (k.match(/(nama|email|almt)/))
+          qList.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
         else
-          params.where.and.push({[k]:qObj[k]})
+          qList.push({[k]:qObj[k]})
       })
+
+      switch (qList.length) {
+        case 2:
+          params.where.and.push({or: qList})
+          break
+        case 1:
+          params.where.and.push(qList[0])
+          break
+        default:
+      }
     }
 
     var fungsiSearch = {}
@@ -182,7 +206,7 @@ export const getFormList = (category, skip, query) => {
       }      
     }
     console.log('fungsiSearch', category, fungsiSearch)
-    if (fungsiSearch)
+    if (Object.keys(fungsiSearch).length)
       params.where.and.push(fungsiSearch)
 
     var fields

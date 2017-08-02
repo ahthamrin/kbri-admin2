@@ -85,17 +85,18 @@ export class FormList extends React.Component {
           <TextField hintText="Cari Nama" fullWidth={true} value={this.props.search} onChange={(e, v) => this.props.searchChange(v)}/>
         </div>
         <div className='col-2'>
-          <ActionSearch onTouchTap={()=> {return this.props.search ? this.props.router.push('/admin/app/form-list/'+category+'/?nama='+encodeURIComponent(this.props.search)) : this.props.router.push('/admin/app/form-list/'+category+'/')}} />
+          <ActionSearch onTouchTap={()=> {return this.props.search ? this.props.router.push('/admin/app/form-list/'+category+'/?nama='+encodeURIComponent(this.props.search)+'&email='+encodeURIComponent(this.props.search)) : this.props.router.push('/admin/app/form-list/'+category+'/')}} />
         </div>
       </div>
       <div className='row'>
         <div className='col-xs-12' >
 
         <List>
-          {this.props.forms.filter((v) => {
-            return v.get('nama').search(this.props.search) >= 0
-          }, this)
-          .sort((v) => -v.get('updatedTime'))
+          {this.props.forms
+          //.filter((v) => {
+          //  return v.get('nama').search(this.props.search) >= 0
+          //}, this)
+          .sort((v) => v.get('updatedTime'))
           .map((v) => {
             return (
               <ListItem key={v.get('id')} secondaryText={moment(v.get('createdTime')).format('DD/MM/YYYY')} >
