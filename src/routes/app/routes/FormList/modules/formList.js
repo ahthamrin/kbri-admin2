@@ -98,25 +98,29 @@ export const getFormList = (category, skip, query) => {
       if (qObj) {
         console.log('qObj', qObj)
         params.where = {and:[]}
-        var qList = []
+        var qOrList = []
+        var qAndList = []
         Object.keys(qObj).forEach((k) => {
           if (k.match(/(nama|email|almt)/))
-            qList.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
+            qOrList.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
           else
-            qList.push({[k]:qObj[k]})
+            qAndList.push({[k]:qObj[k]})
         })
 
-        switch (qList.length) {
+        switch (qOrList.length) {
           case 2:
-            params.where.and.push({or: qList})
+            params.where.and.push({or: qOrList})
             break
           case 1:
-            params.where.and.push(qList[0])
+            params.where.and.push(qOrList[0])
             break
           default:
         }
-      }
 
+        qAndList.forEach(function(l) {
+          params.where.and.push(l);
+        });
+      }
 
       var fungsiSearch = {}
       if (category == 'LaporDiri') {

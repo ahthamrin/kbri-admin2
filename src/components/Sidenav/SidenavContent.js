@@ -136,6 +136,15 @@ class SidebarContent extends React.Component {
         showPemilikBarangPindahan = true
         showWNI = true
         break;
+      case 'konsuler':
+        showLaporDiri = true
+        showPermohonanPaspor = true
+        showLaporanKemajuanStudi = true
+        showLaporanKelulusan = true
+        showLaporanKepulangan = true
+        showPemilikBarangPindahan = true
+        showWNI = true
+        break
       case 'admin':
         showLaporDiri = true
         showPermohonanPaspor = true

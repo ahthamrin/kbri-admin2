@@ -119,7 +119,7 @@ export class UserEdit extends React.Component {
                   value={this.props.formValues.get('fungsi')}
                   onChange={(e, idx, value) => {this.props.inputChange('fungsi', value)}}
                 >
-                  <MenuItem value={'protkons'} primaryText="konsuler" />
+                  <MenuItem value={'konsuler'} primaryText="konsuler" />
                   <MenuItem value={'naker'} primaryText="naker" />
                   <MenuItem value={'imigrasi'} primaryText="imigrasi" />
                   <MenuItem value={'keuangan'} primaryText="keuangan" />

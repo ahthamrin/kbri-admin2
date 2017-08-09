@@ -94,6 +94,7 @@ export class Dashboard extends React.Component {
 
     try {
       switch(this.props.fungsi) {
+        case 'konsuler':
         case 'admin':
           this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKemajuanStudi', 'LaporanKelulusan', 'LaporanKepulangan', 'PemilikBarangPindahan', 'DataWNI', ]
           break

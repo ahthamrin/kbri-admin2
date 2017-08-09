@@ -82,7 +82,7 @@ export class FormList extends React.Component {
     <QueueAnim type="bottom" className="ui-animate">
       <div className='row'>
         <div className='col-10' >
-          <TextField hintText="Cari Nama" fullWidth={true} value={this.props.search} onChange={(e, v) => this.props.searchChange(v)}/>
+          <TextField hintText="Cari" fullWidth={true} value={this.props.search} onChange={(e, v) => this.props.searchChange(v)}/>
         </div>
         <div className='col-2'>
           <ActionSearch onTouchTap={()=> {return this.props.search ? this.props.router.push('/admin/app/form-list/'+category+'/?nama='+encodeURIComponent(this.props.search)+'&email='+encodeURIComponent(this.props.search)) : this.props.router.push('/admin/app/form-list/'+category+'/')}} />
