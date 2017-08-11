@@ -146,6 +146,7 @@ export const getFormList = (category, skip, query) => {
         else
           params.where = fungsiSearch
 
+      dispatch(setInKey( 'forms', fromJS({}) ))
       return dispatch(apiActions.getWnis(params))
         .then((data) => {
           if (data.error || data.statusCode) {
@@ -228,6 +229,7 @@ export const getFormList = (category, skip, query) => {
       Object.assign(params, {fields})
     }
 
+    dispatch(setInKey( 'forms', fromJS({}) ))
     return dispatch(apiActions.getForms(params))
       .then((data) => {
         if (data.error || data.statusCode) {
