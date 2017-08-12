@@ -19,3 +19,25 @@ body {
 *:after {
   box-sizing: inherit;
 }
+
+.view-ticket-item {
+  width: 90%;
+  margin: .5rem .75rem;
+  padding: .25rem;
+  background-color: lightcoral;
+  font-size: 90%;
+  border-radius: .15rem;
+}
+
+.ticket-sender {
+  font-weight: bold;
+}
+
+.ticket-message {
+  margin-left: .5rem;
+}
+
+.ticket-message-time {
+  font-size: 80%;
+  margin-left: .75rem;
+}

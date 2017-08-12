@@ -181,10 +181,10 @@ export class FormView extends React.Component {
       <List>
       { this.props.tickets.map((v) => {
           return (
-            <ListItem  key={v.get('id')} >
-            <div className='sender'>{v.getIn(['sender','username'])}</div>
-            <div className='message'>>{v.get('message')}</div>
-            <div className='message-time'>{moment(v.get('createdTime')).fromNow()}</div>
+            <ListItem  className='view-ticket-item' key={v.get('id')} >
+            <div className='ticket-sender'>{v.getIn(['sender','username'])}</div>
+            <div className='ticket-message'>{v.get('message')}</div>
+            <div className='ticket-message-time'>{moment(v.get('createdTime')).fromNow()}</div>
             </ListItem>
           )
         })

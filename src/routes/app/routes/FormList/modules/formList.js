@@ -103,8 +103,9 @@ export const getFormList = (category, skip, query) => {
         Object.keys(qObj).forEach((k) => {
           if (k.match(/(nama|email|almt)/))
             qOrList.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
-          else
+          else {
             qAndList.push({[k]:qObj[k]})
+          }
         })
 
         switch (qOrList.length) {
@@ -173,7 +174,6 @@ export const getFormList = (category, skip, query) => {
 
     if (qObj) {
       console.log('qObj', qObj)
-      params.where = {and:[]}
       var qList = []
       Object.keys(qObj).forEach((k) => {
         if (k.match(/(nama|email|almt)/))
