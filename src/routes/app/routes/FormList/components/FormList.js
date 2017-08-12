@@ -19,6 +19,63 @@ import RaisedButton from 'material-ui/RaisedButton'
 import NavigationChevronLeft from 'material-ui/svg-icons/navigation/chevron-left'
 import NavigationChevronRight from 'material-ui/svg-icons/navigation/chevron-right'
 
+
+function searchToQuery(search) {
+  search = search.trim()
+  if (search.length == 0)
+    return null
+
+  var searchData = search.split(/\s+/)
+  var searchText = []
+  var searchFields = []
+  searchData.forEach((v) => {
+    if (v.search(':') == -1) {
+      searchText.push(v)
+    }
+    else {
+      searchFields.push(v.replace(':','='))
+    }
+  })
+
+  var queryString = ''
+  if (searchText.length) {
+    var searchString = searchText.join(' ')
+    queryString = 'nama='+searchString+'&email='+searchString
+  }
+  if (searchFields.length) {
+    if (queryString.length) {
+      queryString = queryString + '&'
+    }
+    queryString = queryString + searchFields.join('&')
+  }
+  console.log('search qs', queryString)
+  return queryString
+}
+
+function  queryToSearch(query) {
+  console.log('queryToSearch', query)
+
+  var qObj = query ? qs.parse(query.substr(1)) : null
+
+  if (qObj) {
+    console.log('queryToSearch', qObj)
+    var searchText = ''
+    if (qObj['nama']) {
+      searchText = qObj['nama']
+      delete qObj['nama']
+      delete qObj['email']
+    }
+    Object.keys(qObj).forEach((k) => {
+      searchText = searchText+' '+k+':'+qObj[k]
+    })
+    return searchText
+  }
+  else {
+    return ''
+  }
+}
+
+
 export class FormList extends React.Component {
   constructor() {
     super();
@@ -38,6 +95,8 @@ export class FormList extends React.Component {
       }, 10)
     }
 
+    this.props.searchChange(queryToSearch(location.search))
+
     var formType = FORMS[this.props.routeParams.formCategory == 'WNI' ? 'LaporDiri' : this.props.routeParams.formCategory]
 
     if (formType) {
@@ -53,6 +112,8 @@ export class FormList extends React.Component {
       || nextProps.location != this.props.location) {
       console.log('componentWillReceiveProps', nextProps)
 
+      this.props.searchChange(queryToSearch(location.search))
+      
       var formType = FORMS[this.props.routeParams.formCategory == 'WNI' ? 'LaporDiri' : this.props.routeParams.formCategory]
       var offset = Number(nextProps.routeParams.offset) || 0
 
@@ -85,7 +146,7 @@ export class FormList extends React.Component {
           <TextField hintText="Cari" fullWidth={true} value={this.props.search} onChange={(e, v) => this.props.searchChange(v)}/>
         </div>
         <div className='col-2'>
-          <ActionSearch onTouchTap={()=> {return this.props.search ? this.props.router.push('/admin/app/form-list/'+category+'/?nama='+encodeURIComponent(this.props.search)+'&email='+encodeURIComponent(this.props.search)) : this.props.router.push('/admin/app/form-list/'+category+'/')}} />
+          <ActionSearch onTouchTap={()=> {return this.props.search.trim() ? this.props.router.push('/admin/app/form-list/'+category+'/?' + searchToQuery(this.props.search)) : this.props.router.push('/admin/app/form-list/'+category+'/')}} />
         </div>
       </div>
       <div className='row'>

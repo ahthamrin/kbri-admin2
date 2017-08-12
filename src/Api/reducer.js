@@ -723,7 +723,7 @@ export const getTickets = memoize({ttl: 10000}, (filterParam) => {
 		dispatch(requestStart())
 		var token = getState().api.getIn(['token','id'])
 		return new Promise((resolve) => {
-			return Api.getTickets({include: 'sender'}, token)
+			return Api.getTickets({include: ['sender','user']}, token)
 				.then((data) => {
 					if (data.error || data.statusCode) {
 						dispatch(requestError(data.error || data))

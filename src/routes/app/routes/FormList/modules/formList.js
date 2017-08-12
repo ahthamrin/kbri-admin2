@@ -47,7 +47,6 @@ export function setInKey(key, data) {
     data,
   }
 }
-
 /*  This is a thunk, meaning it is a function that immediately
     returns a function for lazy evaluation. It is incredibly useful for
     creating async actions, especially when combined with redux-thunk! */
@@ -97,30 +96,44 @@ export const getFormList = (category, skip, query) => {
 
       if (qObj) {
         console.log('qObj', qObj)
-        params.where = {and:[]}
+        params.where = {}
         var qOrList = []
-        var qAndList = []
         Object.keys(qObj).forEach((k) => {
           if (k.match(/(nama|email|almt)/))
             qOrList.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
           else {
-            qAndList.push({[k]:qObj[k]})
+            if (k.match(/(tgl|Date|Time)/)) {
+              // time fields can have greater/less than
+              if (qObj[k].substr(0,2) == '<=') {
+                // qAndList.push({[k]:{lte:qObj[k].substr(2)}})
+                params.where[k] = {lte:qObj[k].substr(2)}
+              }
+              else if (qObj[k].substr(0,2) == '>=') {
+                // qAndList.push({[k]:{gte:qObj[k].substr(2)}})
+                params.where[k] = {gte:qObj[k].substr(2)}
+              }
+              else if (qObj[k][0] == '<') {
+                // qAndList.push({[k]:{lt:qObj[k].substr(1)}})
+                params.where[k] = {lt:qObj[k].substr(1)}
+              }
+              else if (qObj[k][0] == '>') {
+                // qAndList.push({[k]:{gt:qObj[k].substr(1)}})
+                params.where[k] = {gt:qObj[k].substr(1)}
+              }
+              else {
+                // qAndList.push({[k]:qObj[k]})
+                params.where[k] = qObj[k]
+              }
+            }
+            else {
+                params.where[k] = qObj[k]
+            }
           }
         })
 
-        switch (qOrList.length) {
-          case 2:
-            params.where.and.push({or: qOrList})
-            break
-          case 1:
-            params.where.and.push(qOrList[0])
-            break
-          default:
-        }
+      if (qOrList.length)
+        params.where['or'] = qOrList
 
-        qAndList.forEach(function(l) {
-          params.where.and.push(l);
-        });
       }
 
       var fungsiSearch = {}
@@ -142,10 +155,7 @@ export const getFormList = (category, skip, query) => {
       }
       console.log('fungsiSearch', category, fungsiSearch)
       if (Object.keys(fungsiSearch).length)
-        if (params.where)
-          params.where.and.push(fungsiSearch)
-        else
-          params.where = fungsiSearch
+        Object.assign(params.where, fungsiSearch)
 
       dispatch(setInKey( 'forms', fromJS({}) ))
       return dispatch(apiActions.getWnis(params))
@@ -162,11 +172,12 @@ export const getFormList = (category, skip, query) => {
             dispatch(setInKey( 'forms', fromJS(dataObj) ))
           }
         })
-    }
+    } // end of WNI model
 
     // Forms model
     var params = {
-        where: {and: [{type: category}, {ticketStatus: {inq: ['open', 'submitted', 'close']}}]},
+        // where: {and: [{type: category}, {ticketStatus: {inq: ['open', 'submitted', 'close']}}]},
+        where: {type: category, ticketStatus: {inq: ['open', 'close', 'submitted']}},
         skip:skip*100,
       }
 
@@ -174,25 +185,45 @@ export const getFormList = (category, skip, query) => {
 
     if (qObj) {
       console.log('qObj', qObj)
-      var qList = []
+      var qOrList = []
       Object.keys(qObj).forEach((k) => {
         if (k.match(/(nama|email|almt)/))
-          qList.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
-        else
-          qList.push({[k]:qObj[k]})
+          qOrList.push({[k]:{like:'.*'+qObj[k]+'.*', options: 'i'}})
+        else {
+          if (k.match(/(tgl|Date|Time)/)) {
+            // time fields can have greater/less than
+            if (qObj[k].substr(0,2) == '<=') {
+              // qAndList.push({[k]:{lte:qObj[k].substr(2)}})
+              params.where[k] = {lte:qObj[k].substr(2)}
+            }
+            else if (qObj[k].substr(0,2) == '>=') {
+              // qAndList.push({[k]:{gte:qObj[k].substr(2)}})
+              params.where[k] = {gte:qObj[k].substr(2)}
+            }
+            else if (qObj[k][0] == '<') {
+              // qAndList.push({[k]:{lt:qObj[k].substr(1)}})
+              params.where[k] = {lt:qObj[k].substr(1)}
+            }
+            else if (qObj[k][0] == '>') {
+              // qAndList.push({[k]:{gt:qObj[k].substr(1)}})
+              params.where[k] = {gt:qObj[k].substr(1)}
+            }
+            else {
+              // qAndList.push({[k]:qObj[k]})
+              params.where[k] = qObj[k]
+            }
+          }
+          else {
+              params.where[k] = qObj[k]
+          }
+        }
       })
 
-      switch (qList.length) {
-        case 2:
-          params.where.and.push({or: qList})
-          break
-        case 1:
-          params.where.and.push(qList[0])
-          break
-        default:
-      }
-    }
+    if (qOrList.length)
+      params.where['or'] = qOrList
 
+    }
+    
     var fungsiSearch = {}
     if (category == 'LaporDiri') {
       switch (getState().api.getIn(['token','user','fungsi'])) {
@@ -212,14 +243,14 @@ export const getFormList = (category, skip, query) => {
     }
     console.log('fungsiSearch', category, fungsiSearch)
     if (Object.keys(fungsiSearch).length)
-      params.where.and.push(fungsiSearch)
+      Object.assign(params.where, fungsiSearch)
 
     var fields
 
     // fields are dependent on the form category
     switch (category) {
       case 'LaporDiri':
-        fields = {id: true, nama: true, type: true, createdTime: true, updatedTime: true}
+        fields = {id: true, nama: true, type: true, createdTime: true, updatedTime: true, ticketStatus: true}
         break
 
       default:

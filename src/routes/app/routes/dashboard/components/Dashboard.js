@@ -31,6 +31,13 @@ const Main = () => (
   </div>
     );
 
+const formListLink = (type, date) => {
+  if (type == 'DataWNI')
+    return '/admin/app/form-list/WNI/?updatedTime=>='+date
+  else
+    return '/admin/app/form-list/'+type+'/?updatedTime=>='+date
+}
+
 const TimeStats = (props) => (
   <div className="box box-default" key={props.key}>
     <div className="box-body">
@@ -41,25 +48,25 @@ const TimeStats = (props) => (
             <div className="box-body">
               <div className="row text-center metrics">
                 <div className="col-xs-6 col-md-3 metric-box">
-                  <span className="metric">{props.stats.getIn([props.type,'day']) || 0}</span>
+                  <span className="metric"><Link to={formListLink(props.type, props.stats.getIn([props.type, 'time', 'day']))}>{props.stats.getIn([props.type,'day']) || 0}</Link></span>
                   <span className="metric-info">Hari Ini</span>
                 </div>
                 <div className="col-xs-6 col-md-3 metric-box">
-                  <span className="metric">{props.stats.getIn([props.type,'week']) || 0}</span>
+                  <span className="metric"><Link to={formListLink(props.type, props.stats.getIn([props.type, 'time', 'week']))}>{props.stats.getIn([props.type,'week']) || 0}</Link></span>
                   <span className="metric-info">Pekan Ini</span>
                 </div>
                 <div className="col-xs-6 col-md-3 metric-box">
-                  <span className="metric">{props.stats.getIn([props.type,'month']) || 0}</span>
+                  <span className="metric"><Link to={formListLink(props.type, props.stats.getIn([props.type, 'time', 'month']))}>{props.stats.getIn([props.type,'month']) || 0}</Link></span>
                   <span className="metric-info">Bulan Ini</span>
                 </div>
                 { props.type == 'DataWNI' ?
                 <div className="col-xs-6 col-md-3 metric-box">
-                  <span className="metric">{props.stats.getIn([props.type,'total']) || 0}</span>
+                  <span className="metric"><Link to={formListLink(props.type, props.stats.getIn([props.type, 'time', 'total']))}>{props.stats.getIn([props.type,'total']) || 0}</Link></span>
                   <span className="metric-info">TOTAL</span>
                 </div>
                 :
                 <div className="col-xs-6 col-md-3 metric-box">
-                  <span className="metric">{props.stats.getIn([props.type,'year']) || 0}</span>
+                  <span className="metric"><Link to={formListLink(props.type, props.stats.getIn([props.type, 'time', 'year']))}>{props.stats.getIn([props.type,'year']) || 0}</Link></span>
                   <span className="metric-info">Tahun Ini</span>
                 </div>
                 }

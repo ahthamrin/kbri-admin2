@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import { connect } from 'react-redux'
 
-import { logout, getFormList, getOpenForms, searchChange } from '../modules/formList'
+import { getFormList, getOpenForms, searchChange } from '../modules/formList'
 import { getTickets } from 'Api/reducer'
 
 /*  This is a container component. Notice it does not contain any JSX,
@@ -16,7 +16,6 @@ import FormList from '../components/FormList'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
-  logout,
   getFormList,
   getOpenForms,
   searchChange,
