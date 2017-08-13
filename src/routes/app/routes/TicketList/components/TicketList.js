@@ -76,7 +76,7 @@ function  queryToSearch(query) {
 }
 
 
-export class FormList extends React.Component {
+export class TicketList extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -95,72 +95,63 @@ export class FormList extends React.Component {
       }, 10)
     }
 
-    this.props.searchChange(queryToSearch(location.search))
-
-    var formType = FORMS[this.props.routeParams.formCategory == 'WNI' ? 'LaporDiri' : this.props.routeParams.formCategory]
-
-    if (formType) {
-      this.props.getFormList(this.props.routeParams.formCategory, Number(this.props.routeParams.offset) || 0, location.search)
-    }
-    
+    this.props.getTicketList(null, Number(this.props.routeParams.offset) || 0, location.search)
   }
 
   componentWillReceiveProps(nextProps) {
 
-    if (nextProps.routeParams.formCategory != this.props.routeParams.formCategory
-      || nextProps.routeParams.offset != this.props.routeParams.offset
+    if (nextProps.routeParams.offset != this.props.routeParams.offset
       || nextProps.location != this.props.location) {
       console.log('componentWillReceiveProps', nextProps)
 
-      this.props.searchChange(queryToSearch(location.search))
-      
-      var formType = FORMS[this.props.routeParams.formCategory == 'WNI' ? 'LaporDiri' : this.props.routeParams.formCategory]
       var offset = Number(nextProps.routeParams.offset) || 0
 
-      if (formType) {
-        this.props.getFormList(nextProps.routeParams.formCategory, offset, location.search)
-      }    
+      this.props.getTicketList(null, offset, location.search)
     }
   }
 
   render() {
-    var category = this.props.routeParams.formCategory
-
-    var formViewURL = category == 'WNI' ? 'wni-view' : 'form-view'
 
     var offset = Number(this.props.routeParams.offset) || 0
 
-    var formLength = this.props.forms.length
+    var ticketLength = this.props.tickets.length
 
     var prevBtn = offset > 0 ? true : false
-    var nextBtn = formLength == 100 ? true : false
+    var nextBtn = ticketLength == 100 ? true : false
+
+    // this.props.tickets.forEach((t) => {
+    //   console.log(t.get('readBy'), this.props.user.get('id'), t.get('readBy').includes(this.props.user.get('id')))
+    // })
+      // <div className='row'>
+      //   <div className='col-10' >
+      //     <TextField hintText="Cari" fullWidth={true} value={this.props.search} onChange={(e, v) => this.props.searchChange(v)}/>
+      //   </div>
+      //   <div className='col-2'>
+      //     <ActionSearch onTouchTap={()=> {return this.props.search.trim() ? this.props.router.push('/admin/app/ticket-list/?' + searchToQuery(this.props.search)) : this.props.router.push('/admin/app/ticket-list/')}} />
+      //   </div>
+      // </div>
 
     return (
   <div className="container-fluid no-breadcrumbs with-maxwidth chapter">
     <article className="article">
-      <h2 className="article-title">{category == 'WNI' ? 'Data WNI' : Converter.camelCasetoTitle(category)}</h2>
+      <h2 className="article-title">Pesan di Form</h2>
 
     <QueueAnim type="bottom" className="ui-animate">
-      <div className='row'>
-        <div className='col-10' >
-          <TextField hintText="Cari" fullWidth={true} value={this.props.search} onChange={(e, v) => this.props.searchChange(v)}/>
-        </div>
-        <div className='col-2'>
-          <ActionSearch onTouchTap={()=> {return this.props.search.trim() ? this.props.router.push('/admin/app/form-list/'+category+'/?' + searchToQuery(this.props.search)) : this.props.router.push('/admin/app/form-list/'+category+'/')}} />
-        </div>
-      </div>
       <div className='row'>
         <div className='col-xs-12' >
 
         <List>
-          {this.props.forms
+          {this.props.tickets
           //.filter((v) => {
           //  return v.get('nama').search(this.props.search) >= 0
           //}, this)
           .map((v) => {
             return (
-              <ListItem key={v.get('id')} secondaryText={moment(v.get('createdTime')).format('DD/MM/YYYY')} >
-                <div><Link to={`/admin/app/${formViewURL}/`+v.get('id')} >{getFormTitle(v).title}</Link></div>
+              <ListItem key={v.get('id')} onTouchTap={ () => this.props.router.push(`/admin/app/form-view/`+v.get('formId')) } >
+                <div className={'view-ticket-item '+(v.getIn(['sender', 'fungsi']) ? 'fungsi ':' ')+(v.get('readBy').includes(this.props.user.get('id')) ? ' ' : 'unread ')}>
+                  <div className='ticket-message'>{v.get('message')}</div>
+                  <div className='ticket-message-time'>{ (v.getIn(['sender', 'fungsi'])|| '').toUpperCase() } { (v.getIn(['sender','username']) || v.getIn(['sender','email']) || '').replace(/@.+/,'')} ({moment(v.get('createdTime')).format('DD/MM/YYYY')})</div>
+                </div>
               </ListItem>
             )
           })}
@@ -170,10 +161,10 @@ export class FormList extends React.Component {
       </div>
       <div className='row'>
           <div className='col-6'>
-              { prevBtn && <Link to={`/admin/app/form-list/${category}/${offset-1}`+location.search}><NavigationChevronLeft /></Link> }
+              { prevBtn && <Link to={`/admin/app/ticket-list/${offset-1}`+location.search}><NavigationChevronLeft /></Link> }
           </div>
           <div className='col-6 text-right'>
-              { nextBtn && <Link to={`/admin/app/form-list/${category}/${offset+1}`+location.search}><NavigationChevronRight /></Link> }
+              { nextBtn && <Link to={`/admin/app/ticket-list/${offset+1}`+location.search}><NavigationChevronRight /></Link> }
           </div>
       </div>
     </QueueAnim>
@@ -184,4 +175,4 @@ export class FormList extends React.Component {
   }
 }
 
-export default FormList
+export default TicketList

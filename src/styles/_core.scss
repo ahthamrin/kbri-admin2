@@ -22,11 +22,17 @@ body {
 
 .view-ticket-item {
   width: 90%;
-  margin: .5rem .75rem;
   padding: .25rem;
-  background-color: lightcoral;
   font-size: 90%;
   border-radius: .15rem;
+}
+
+.view-ticket-item.fungsi {
+  padding-left: 1.5rem;
+}
+
+.view-ticket-item.unread {
+  background-color: lightcyan;
 }
 
 .ticket-sender {
@@ -38,6 +44,7 @@ body {
 }
 
 .ticket-message-time {
-  font-size: 80%;
+  font-size: 90%;
   margin-left: .75rem;
+  color: grey;
 }

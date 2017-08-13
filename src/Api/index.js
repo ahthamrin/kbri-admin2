@@ -176,6 +176,8 @@ Api.createTicket = (param, auth) => request('api/tickets', 'POST', param, auth, 
 
 Api.getUserTickets = (userId, param, auth) => request('api/users/'+userId+'/tickets', 'GET', param, auth)
 Api.getTickets = (param, auth) => request('api/tickets', 'GET', param, auth)
+Api.getRelevantTickets = (param, auth) => request('api/tickets/relevant', 'GET', param, auth)
+Api.countRelevantTickets = (param, auth) => request('api/tickets/relevantCount', 'GET', param, auth)
 
 Api.addReadByTickets = (where, data, auth) => requestWhereData('api/tickets/addReadBy', 'POST', where, data, auth, jsonHeaders)
 // XXX Why two fetches? OPTIONS then GET

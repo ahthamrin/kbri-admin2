@@ -13,6 +13,7 @@ export default (store) => ({
         require('./routes/FormList').default(store),
         require('./routes/FormView').default(store),
         require('./routes/WniView').default(store),
+        require('./routes/TicketList').default(store),
         require('./routes/charts'),
         require('./routes/ecommerce'),
         require('./routes/forms'),

@@ -165,6 +165,7 @@ class SidebarContent extends React.Component {
         <li><FlatButton href="/admin/app"><i className="nav-icon material-icons">dashboard</i><span className="nav-text">Dashboard</span></FlatButton></li>
         <li><FlatButton href="/admin/app/data-graph"><i className="nav-icon material-icons">view_list</i><span className="nav-text">Data Grafik</span></FlatButton></li>
         <li className="nav-divider" />
+        <li><FlatButton href="/admin/app/ticket-list/"><i className="nav-icon material-icons">list</i><span className="nav-text">Pesan di Form</span></FlatButton></li>
         { showLaporDiri && <li><FlatButton href="/admin/app/form-list/LaporDiri/"><i className="nav-icon material-icons">list</i><span className="nav-text">Lapor Diri</span></FlatButton></li> }
         { showPermohonanPaspor && <li><FlatButton href="/admin/app/form-list/PermohonanPaspor/"><i className="nav-icon material-icons">list</i><span className="nav-text">Permohonan Paspor</span></FlatButton></li> }
         { showLaporanKemajuanStudi && <li><FlatButton href="/admin/app/form-list/LaporanKemajuanStudi/"><i className="nav-icon material-icons">list</i><span className="nav-text">Kemajuan Studi</span></FlatButton></li> }

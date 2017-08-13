@@ -771,6 +771,45 @@ export const getUserTickets = (param) => {
 	}
 }
 
+export const getRelevantTickets = memoize({ttl: 10000}, (filterParam) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+		return new Promise((resolve) => {
+			return Api.getRelevantTickets(filterParam, token)
+				.then((data) => {
+					if (data.error || data.statusCode) {
+						dispatch(requestError(data.error || data))
+					}
+					else {
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+export const countRelevantTickets = memoize({ttl: 10000}, (filterParam) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+		return new Promise((resolve) => {
+			return Api.countRelevantTickets(filterParam, token)
+				.then((data) => {
+					if (data.error || data.statusCode) {
+						dispatch(requestError(data.error || data))
+					}
+					else {
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+
 export const addTicket = memoize({ttl: 500}, (formId, userId, message) => {
 	return (dispatch, getState) => {
 		dispatch(requestStart())
@@ -1074,6 +1113,8 @@ export const actions = {
 	submitForm,
 	getUserTickets,
 	getTickets,
+	getRelevantTickets,
+	countRelevantTickets,
 	addTicket,
 	addReadByTickets,
 	getUserById,
