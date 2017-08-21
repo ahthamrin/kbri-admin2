@@ -71,7 +71,8 @@ export class Login extends React.Component {
                   <div className="card-content">
 
                     <section className="logo text-center">
-                      <h3>SAKURA Indonesia Admin</h3>
+                      <div><img style={{width:'192'}} src='/android-icon-192x192.png' /></div>
+                      <h5>SAKURA Admin</h5>
                     </section>
 
                     <form className="form-horizontal">

@@ -716,6 +716,47 @@ export const patchForm = memoize({ttl: 500}, (formValues) => {
 	}
 })
 
+export const getFormsCsv = memoize({ttl: 1000}, (filterParam) => {
+	return (dispatch, getState) => {
+		var token = getState().api.getIn(['token','id'])
+		dispatch(requestStart())
+		delete filterParam.skip
+		return new Promise((resolve) => {
+			return Api.getFormsCsv(filterParam, token)
+				.then((data) => {
+					if (data.error) {
+						dispatch(requestError(data.error))
+					}
+					else {
+						dispatch(requestSuccess())
+					}
+					resolve(data)
+				})
+		})
+	}
+})
+
+export const getFormView = (id, link) => {
+	return (dispatch, getState) => {
+		dispatch(requestStart())
+		var token = getState().api.getIn(['token','id'])
+		var formList = getState().api
+		return new Promise((resolve) => {
+			return Api.getFormById(id, null, token)
+				.then((data) => {
+					if (!data.error) {
+						browserHistory.push(link)
+						dispatch(setInKey('formView',data))
+					}
+					else {
+						dispatch(requestError(data.error))
+					}
+					resolve(data)
+				})
+		})
+	}
+}
+
 // -- Tickets
 
 export const getTickets = memoize({ttl: 10000}, (filterParam) => {
@@ -863,26 +904,6 @@ export const addReadByTickets = memoize({ttl: 500}, (where, attr) => {
 	}
 })
 
-export const getFormView = (id, link) => {
-	return (dispatch, getState) => {
-		dispatch(requestStart())
-		var token = getState().api.getIn(['token','id'])
-		var formList = getState().api
-		return new Promise((resolve) => {
-			return Api.getFormById(id, null, token)
-				.then((data) => {
-					if (!data.error) {
-						browserHistory.push(link)
-						dispatch(setInKey('formView',data))
-					}
-					else {
-						dispatch(requestError(data.error))
-					}
-					resolve(data)
-				})
-		})
-	}
-}
 
 // -- user
 export const getUserById = memoize({ttl: 5000}, (userId) => {
@@ -1111,6 +1132,7 @@ export const actions = {
 	updateForm,
 	patchForm,
 	submitForm,
+	getFormsCsv,
 	getUserTickets,
 	getTickets,
 	getRelevantTickets,

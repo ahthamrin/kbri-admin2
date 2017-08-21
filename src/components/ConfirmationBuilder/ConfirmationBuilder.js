@@ -46,7 +46,7 @@ class ConfirmationBuilder extends React.Component {
     // this.renderValidation();
   }
 
-  renderElement(schema, idx, value='', error='') {
+  renderElement(schema, idx, value='', error='', propValues = null) {
 
     let {
       name,
@@ -94,6 +94,31 @@ class ConfirmationBuilder extends React.Component {
             }
           </div>
         )
+      case 'filepicker':
+        var valueType = value && value.substr(0, value.indexOf(';'))
+        var typeImage = valueType ? valueType.match(/^data:image.*/) : null
+        // var typeFile = (valueType && !typeImage) ? propValues.get('file_'+name).replace(/^local_/,'') : ( schema.link ? schema.link.replace(/.+\./,'') : null )
+        var fileLink = (propValues.get('file_'+name) && !typeImage) ? propValues.get('type')+'/download/'+propValues.get('file_'+name) : ''
+        var fileLinkShort = '...'+fileLink.replace(/.+(.{6}\.\w+)$/,'$1')
+        return (
+          <div key={id} >
+            <label className='active' >{schema.label}</label>
+            { typeImage &&
+              <div className='z-depth-2' style={{margin: '1rem', padding:'.5rem'}} >
+                <img src={value} style={{width:'100%'}} />
+              </div>
+            }
+            {
+              fileLink && 
+              <div key={'pic-'+id} style={{margin: '.25rem', padding:'.25rem'}} >
+                  <span><a href={'https://sakuraindonesia.jp/api/containers/'+fileLink} target='_blank'>File: {fileLinkShort.toUpperCase()}</a></span>
+              </div>
+            }
+            { !value && 
+              <div><span style={{color:'red'}}>{error}</span></div>
+            }
+          </div>
+        )
       case 'text':
       case 'select':
       default:
@@ -110,7 +135,7 @@ class ConfirmationBuilder extends React.Component {
     }
   }
 
-  getElementCache(schema, idx, value, error) {
+  getElementCache(schema, idx, value, error, propValues) {
     var cacheKey = schema.name + schema.uiType + idx;
     var thisCache = this.elCache[cacheKey];
     // console.log('elementCache', thisCache, value, error)
@@ -121,7 +146,7 @@ class ConfirmationBuilder extends React.Component {
     else {
       thisCache = this.elCache[cacheKey] = {value, error};
       // thisCache = this.elCache[cacheKey];
-      thisCache.comp = this.renderElement(schema, idx, value, error);
+      thisCache.comp = this.renderElement(schema, idx, value, error, propValues);
       thisCache.uiType = schema.uiType;
       // console.log('render form field', cacheKey, thisCache, value, error, schema);
       return thisCache.comp;
@@ -135,7 +160,7 @@ class ConfirmationBuilder extends React.Component {
       let error
       if (this.props.errorsList && this.props.errorsList.length)
         error = this.props.errorsList[formIdx][idx]
-      return this.getElementCache( schema, idx, this.props.values.get(schema.name), error );
+      return this.getElementCache( schema, idx, this.props.values.get(schema.name), error, this.props.values );
     });
     return (
       <Paper key={form.formId} zDepth={1} style={{padding: '1rem'}}>

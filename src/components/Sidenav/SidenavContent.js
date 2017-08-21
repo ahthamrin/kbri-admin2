@@ -161,7 +161,6 @@ class SidebarContent extends React.Component {
 
     return (
       <ul className="nav" ref={(c) => { this.nav = c; }}>
-        <li className="nav-header"><span>Navigation</span></li>
         <li><FlatButton href="/admin/app"><i className="nav-icon material-icons">dashboard</i><span className="nav-text">Dashboard</span></FlatButton></li>
         <li><FlatButton href="/admin/app/data-graph"><i className="nav-icon material-icons">view_list</i><span className="nav-text">Data Grafik</span></FlatButton></li>
         <li className="nav-divider" />

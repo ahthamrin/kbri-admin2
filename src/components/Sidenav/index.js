@@ -55,14 +55,8 @@ class Sidebar extends React.Component {
             'bg-color-warning': ['15', '25', '35'].indexOf(colorOption) >= 0,
             'bg-color-danger': ['16', '26', '36'].indexOf(colorOption) >= 0 })}
                 >
-          <svg className="logo-img logo-react" viewBox="0 0 3925 3525" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <circle className="react-dot" stroke="none" cx="1960" cy="1760" r="355" />
-            <g className="react-curve" strokeWidth="170" fill="none">
-              <ellipse cx="2575" cy="545" rx="715" ry="1875" transform="rotate(30)" />
-              <ellipse cx="1760" cy="-1960" rx="715" ry="1875" transform="rotate(90)" />
-              <ellipse cx="-815" cy="-2505" rx="715" ry="1875" transform="rotate(-210)" />
-            </g>
-          </svg>
+
+          <img style={{height:'36px',marginRight:'16px'}} src='/android-icon-36x36.png' />
           <Link to="/admin/" className="brand">{APPCONFIG.brand}</Link>
           <a href="javascript:;" className="collapsednav-toggler" onClick={this.onToggleCollapsedNav}>
             {toggleIcon}

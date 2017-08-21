@@ -101,7 +101,7 @@ const getImages = (formValues, dispatch) => {
     return {}
 
   var imageObj = Object.keys(formValues).reduce((result, item) => {
-    if (item.match(/^file_/)) {
+    if (item.match(/^file_/) && formValues[item].match(/\.jpg$/i)) {
       result[item.replace('file_','')] = (cb) => {
         var fileParam = {
           container: formValues.type,

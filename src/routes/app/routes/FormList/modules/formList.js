@@ -81,7 +81,7 @@ export const getOpenForms = () => {
 }
 
 
-export const getFormList = (category, skip, query) => {
+export const getFormList = (category, skip, query, csv) => {
   console.log('getFormList', category, skip, query)
   return (dispatch, getState) => {
 
@@ -245,8 +245,15 @@ export const getFormList = (category, skip, query) => {
     if (Object.keys(fungsiSearch).length)
       Object.assign(params.where, fungsiSearch)
 
-    var fields
 
+    if (csv) {
+      var token = getState().api.getIn(['token','id'])
+      delete params.skip
+      return window.open('https://sakuraindonesia.jp/api/Forms/csv?filter='+encodeURIComponent(JSON.stringify(params))+'&access_token='+token)
+    }
+
+
+    var fields
     // fields are dependent on the form category
     switch (category) {
       case 'LaporDiri':

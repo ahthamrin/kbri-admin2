@@ -1,0 +1,1 @@
+["nama", "tempatLahir", "tglLahir", "instNama", "tempatDatangJepang", "tglDatangJepang", "seklNama", "seklTingkat", "seklJurusan", "seklThesis", "seklBiaya", "tglKembali", "almtIdLulus", "telIdLulus", "seklNamaLanjut", "seklJurusanLanjut", "seklTingkatLanjut", "seklSelesaiLanjut", "seklBiayaLanjut", "almtJpLanjut", "telJpLanjut"]

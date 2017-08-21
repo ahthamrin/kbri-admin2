@@ -30,6 +30,12 @@ export const MOHON_PASPOR_FORM_LIST = [
           label: 'Permohonan (pilih yang sesuai)',
         },
         {
+          name: 'tempatAplikasi',
+          uiType: 'select',
+          label: 'Tempat Aplikasi',
+          selections: ['', 'TOKYO'], // selections must start with an empty string
+        },
+        {
           name: 'jnsPermohonanBaru',
           uiType: 'select',
           label: 'Permohonan Baru',
@@ -352,6 +358,14 @@ export const MOHON_PASPOR_FORM_LIST = [
           placeholder: 'Mis: 12530',
           validator: validation.postalCodeId,
         },
+        {
+          name: 'almtIdNotel',
+          uiType: 'text',
+          // type: 'tel',
+          label: 'Nomor Telepon/HP',
+          placeholder: 'Mis: +62-800-1234-5678',
+          validator: validation.phoneNoId,
+        },
         { 
           name: 'divider',
           uiType: 'divider',
@@ -387,7 +401,7 @@ export const MOHON_PASPOR_FORM_LIST = [
         },
       ],
 },
-{ 'formId': 22,
+{ 'formId': 21,
   'name': 'Data Keluarga',
   'schema':
       [ 
@@ -547,7 +561,7 @@ export const MOHON_PASPOR_FORM_LIST = [
 
       ],
 },
-{ 'formId': 23,
+{ 'formId': 21,
   'name': 'Kontak Darurat',
   'schema':
       [ 
@@ -608,7 +622,7 @@ export const MOHON_PASPOR_FORM_LIST = [
         },
       ],
 },
-{ 'formId': 24,
+{ 'formId': 22,
   'name': 'Unggah Dokumen',
   'schema':
       [ 

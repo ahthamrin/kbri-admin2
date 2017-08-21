@@ -171,6 +171,8 @@ Api.getFormById = (id, param, auth) => request('api/Forms/'+id, 'GET', param ? p
 Api.updateForm = (id, param, auth) => request('api/Forms/'+id, 'PUT', param ? param : undefined, auth, jsonHeaders)
 Api.patchForm = (id, param, auth) => request('api/Forms/'+id, 'PATCH', param ? param : undefined, auth, jsonHeaders)
 
+Api.getFormsCsv = (param, auth) => request('api/Forms/csv', 'GET', param ? param : undefined, auth)
+
 // --- tickets CRUD ---
 Api.createTicket = (param, auth) => request('api/tickets', 'POST', param, auth, jsonHeaders)
 

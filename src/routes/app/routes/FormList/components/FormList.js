@@ -16,9 +16,12 @@ import {List, ListItem} from 'material-ui/List'
 import TextField from 'material-ui/TextField'
 import ActionSearch from 'material-ui/svg-icons/action/search'
 import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import NavigationChevronLeft from 'material-ui/svg-icons/navigation/chevron-left'
 import NavigationChevronRight from 'material-ui/svg-icons/navigation/chevron-right'
 
+import FaFileExcelO from 'react-icons/lib/fa/file-excel-o'
+import FaSearch from 'react-icons/lib/fa/search'
 
 function searchToQuery(search) {
   search = search.trim()
@@ -138,15 +141,16 @@ export class FormList extends React.Component {
     return (
   <div className="container-fluid no-breadcrumbs with-maxwidth chapter">
     <article className="article">
-      <h2 className="article-title">{category == 'WNI' ? 'Data WNI' : Converter.camelCasetoTitle(category)}</h2>
+      <h2 className="article-title">{category == 'WNI' ? 'Data WNI' : Converter.camelCasetoTitle(category)}
+      </h2>
 
     <QueueAnim type="bottom" className="ui-animate">
       <div className='row'>
-        <div className='col-10' >
+        <div className='col-11' >
           <TextField hintText="Cari" fullWidth={true} value={this.props.search} onChange={(e, v) => this.props.searchChange(v)}/>
         </div>
-        <div className='col-2'>
-          <ActionSearch onTouchTap={()=> {return this.props.search.trim() ? this.props.router.push('/admin/app/form-list/'+category+'/?' + searchToQuery(this.props.search)) : this.props.router.push('/admin/app/form-list/'+category+'/')}} />
+        <div className='col-1' style={{paddingLeft:0, paddingRight:0, fontSize: '150%', margin: 'auto'}}>
+          <FaSearch onTouchTap={()=> {return this.props.search.trim() ? this.props.router.push('/admin/app/form-list/'+category+'/?' + searchToQuery(this.props.search)) : this.props.router.push('/admin/app/form-list/'+category+'/')}} />
         </div>
       </div>
       <div className='row'>
@@ -169,11 +173,14 @@ export class FormList extends React.Component {
         </div>
       </div>
       <div className='row'>
-          <div className='col-6'>
-              { prevBtn && <Link to={`/admin/app/form-list/${category}/${offset-1}`+location.search}><NavigationChevronLeft /></Link> }
+          <div className='col-3'>
+              { prevBtn && <FlatButton style={{textAlign:'left'}} href={`/admin/app/form-list/${category}/${offset-1}`+location.search} icon={<NavigationChevronLeft />} /> }
           </div>
-          <div className='col-6 text-right'>
-              { nextBtn && <Link to={`/admin/app/form-list/${category}/${offset+1}`+location.search}><NavigationChevronRight /></Link> }
+          <div className='col-6 text-center' style={{margin:'auto'}}>
+              { (category != 'WNI' && formLength > 0) && <RaisedButton primary={true} icon={<FaFileExcelO />} label='CSV' onTouchTap={()=> {this.props.getFormList(this.props.routeParams.formCategory, Number(this.props.routeParams.offset) || 0, location.search, true)}} /> }
+          </div>
+          <div className='col-3 text-right'>
+              { nextBtn && <FlatButton href={`/admin/app/form-list/${category}/${offset+1}`+location.search} icon={<NavigationChevronRight />} /> }
           </div>
       </div>
     </QueueAnim>
