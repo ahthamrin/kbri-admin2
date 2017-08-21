@@ -57,6 +57,16 @@ export function setFormId(formId) {
       if (formValues.error || formValues.statusCode)
         return
 
+      var fungsi = getState().api.getIn(['token','user','fungsi'])
+      if (fungsi == 'loket') {
+        var origFormValues = formValues
+        formValues = {}
+        var fields = ["id", "type", "createdTime", "updatedTime", "nama", "paspor", "tglLahir", "agama", "almtIdDaerah", "almtIdJalan", "almtIdKamar", "almtIdKodepos", "almtIdProv", "almtIdKodepos", "almtJpDaerah", "almtJpKamar", "almtJpKodepos", "almtJpKota", "almtJpNotel", "almtJpProv", "email", "file_imgIdentJpBlkg", "file_imgIdentJpDepan", "file_imgIdentPasfoto", "file_imgIdentPasporImg", "jnsKelamin", "jnsVisa", "kontakIdHub", "kontakIdNama", "kontakIdNotel", "menikah", "noregPaspor", "rencanaKeluarJp", "tempatLahir", "tempatPaspor", "tglDatang", "tglPaspor", "tglVisa", "pekJpJenis"]
+        fields.forEach(function(k) {
+          formValues[k] = origFormValues[k]
+        })
+      }
+
       console.log('formData', formValues)
 
       dispatch({

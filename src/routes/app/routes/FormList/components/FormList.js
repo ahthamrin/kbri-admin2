@@ -177,7 +177,7 @@ export class FormList extends React.Component {
               { prevBtn && <FlatButton style={{textAlign:'left'}} href={`/admin/app/form-list/${category}/${offset-1}`+location.search} icon={<NavigationChevronLeft />} /> }
           </div>
           <div className='col-6 text-center' style={{margin:'auto'}}>
-              { (category != 'WNI' && formLength > 0) && <RaisedButton primary={true} icon={<FaFileExcelO />} label='CSV' onTouchTap={()=> {this.props.getFormList(this.props.routeParams.formCategory, Number(this.props.routeParams.offset) || 0, location.search, true)}} /> }
+              { ((category != 'WNI' && this.props.fungsi != 'loket') && formLength > 0) && <RaisedButton primary={true} icon={<FaFileExcelO />} label='CSV' onTouchTap={()=> {this.props.getFormList(this.props.routeParams.formCategory, Number(this.props.routeParams.offset) || 0, location.search, true)}} /> }
           </div>
           <div className='col-3 text-right'>
               { nextBtn && <FlatButton href={`/admin/app/form-list/${category}/${offset+1}`+location.search} icon={<NavigationChevronRight />} /> }

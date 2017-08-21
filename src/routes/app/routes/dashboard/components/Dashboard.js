@@ -114,6 +114,9 @@ export class Dashboard extends React.Component {
         case 'imigrasi':
           this.dashboardForms = ['LaporDiri', 'PermohonanPaspor', 'LaporanKepulangan', 'DataWNI']
           break
+        case 'loket':
+          this.dashboardForms = ['LaporDiri', 'DataWNI']
+          break
         default:
           this.dashboardForms = ['LaporDiri', 'LaporanKepulangan']
       }

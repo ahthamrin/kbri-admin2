@@ -24,6 +24,7 @@ const mapDispatchToProps = {
 const api = (state) => state.api
 const token = createSelector(api, (a) => a.getIn(['token','id']))
 const user = createSelector(api, (a) => a.getIn(['token','user']))
+const fungsi = createSelector(api, (a) => a.getIn(['token','user', 'fungsi']))
 const apiTickets = createSelector(api, (a) => a.get('tickets'))
 
 const formList = (state) => state.formList
@@ -42,6 +43,7 @@ const forms = createSelector(formList, (t) => {
 const mapStateToProps = (state) => ({
   // formList : formList(state),
   user: user(state),
+  fungsi: fungsi(state),
   token: token(state),
   forms: forms(state),
   search: search(state),

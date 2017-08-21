@@ -125,6 +125,7 @@ export class UserEdit extends React.Component {
                   <MenuItem value={'keuangan'} primaryText="keuangan" />
                   <MenuItem value={'perhubungan'} primaryText="perhubungan" />
                   <MenuItem value={'dikbud'} primaryText="dikbud" />
+                  <MenuItem value={'loket'} primaryText="loket" />
                   <MenuItem value={'admin'} primaryText="admin" />
                 </SelectField>
               </div>
